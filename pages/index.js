@@ -109,9 +109,21 @@ const starterPosts = [
       helpful: 8,
     },
     comments: [
-      { id: 11, author: "匿名用户A", text: "我在另一个欧洲机场也碰到过类似情况，后来发现把过程记详细真的很重要。" },
-      { id: 12, author: "匿名用户B", text: "谢谢你写得这么具体，这样别人才能知道不是一句‘态度不好’就结束了。" },
-      { id: 13, author: "匿名用户C", text: "建议以后补充当时有没有其他乘客在场、有没有排队顺序问题。" },
+      {
+        id: 11,
+        author: "匿名用户A",
+        text: "我在另一个欧洲机场也碰到过类似情况，后来发现把过程记详细真的很重要。",
+      },
+      {
+        id: 12,
+        author: "匿名用户B",
+        text: "谢谢你写得这么具体，这样别人才能知道不是一句‘态度不好’就结束了。",
+      },
+      {
+        id: 13,
+        author: "匿名用户C",
+        text: "建议以后补充当时有没有其他乘客在场、有没有排队顺序问题。",
+      },
     ],
     likes: 24,
     saves: 8,
@@ -138,10 +150,26 @@ const starterPosts = [
       helpful: 10,
     },
     comments: [
-      { id: 21, author: "匿名用户D", text: "我也遇到过类似情况，但当时没有意识到要记日期和店名。" },
-      { id: 22, author: "匿名用户E", text: "这种细小但重复出现的差别对待，真的很消耗人。" },
-      { id: 23, author: "匿名用户F", text: "建议加一个字段：当时店内是否拥挤。" },
-      { id: 24, author: "匿名用户G", text: "谢谢分享，让我知道不是自己太敏感。" },
+      {
+        id: 21,
+        author: "匿名用户D",
+        text: "我也遇到过类似情况，但当时没有意识到要记日期和店名。",
+      },
+      {
+        id: 22,
+        author: "匿名用户E",
+        text: "这种细小但重复出现的差别对待，真的很消耗人。",
+      },
+      {
+        id: 23,
+        author: "匿名用户F",
+        text: "建议加一个字段：当时店内是否拥挤。",
+      },
+      {
+        id: 24,
+        author: "匿名用户G",
+        text: "谢谢分享，让我知道不是自己太敏感。",
+      },
     ],
     likes: 31,
     saves: 10,
@@ -168,8 +196,16 @@ const starterPosts = [
       helpful: 12,
     },
     comments: [
-      { id: 31, author: "匿名用户H", text: "你写得很完整，我觉得这种记录方式特别有意义。" },
-      { id: 32, author: "匿名用户I", text: "有些经历就是靠大家一点点写出来，才知道并不是孤例。" },
+      {
+        id: 31,
+        author: "匿名用户H",
+        text: "你写得很完整，我觉得这种记录方式特别有意义。",
+      },
+      {
+        id: 32,
+        author: "匿名用户I",
+        text: "有些经历就是靠大家一点点写出来，才知道并不是孤例。",
+      },
     ],
     likes: 19,
     saves: 7,
@@ -185,8 +221,18 @@ function getCountryMeta(countryCode) {
 }
 
 function getPostHotScore(post) {
-  const reactionTotal = Object.values(post.reactions || {}).reduce((sum, value) => sum + value, 0);
-  return (post.likes || 0) * 3 + (post.comments?.length || 0) * 4 + (post.shares || 0) * 3 + (post.saves || 0) * 2 + reactionTotal;
+  const reactionTotal = Object.values(post.reactions || {}).reduce(
+    (sum, value) => sum + value,
+    0
+  );
+
+  return (
+    (post.likes || 0) * 3 +
+    (post.comments?.length || 0) * 4 +
+    (post.shares || 0) * 3 +
+    (post.saves || 0) * 2 +
+    reactionTotal
+  );
 }
 
 function ActionButton({ active, children, onClick }) {
@@ -206,14 +252,22 @@ function ActionButton({ active, children, onClick }) {
   );
 }
 
-function ExpandableText({ text, preview = 100, maxLength = 1000, textClassName = "text-base leading-7 text-gray-800" }) {
+function ExpandableText({
+  text,
+  preview = 100,
+  maxLength = 1000,
+  textClassName = "text-base leading-7 text-gray-800",
+}) {
   const [expanded, setExpanded] = useState(false);
 
   if (!text) return null;
 
   const trimmedText = text.slice(0, maxLength);
   const needsExpand = trimmedText.length > preview;
-  const visibleText = expanded || !needsExpand ? trimmedText : `${trimmedText.slice(0, preview)}...`;
+  const visibleText =
+    expanded || !needsExpand
+      ? trimmedText
+      : `${trimmedText.slice(0, preview)}...`;
 
   return (
     <div>
@@ -254,8 +308,12 @@ function CommentList({ comments }) {
       <div className="space-y-3">
         {shown.map((comment) => (
           <div key={comment.id} className="rounded-2xl bg-gray-50 p-3">
-            <div className="text-sm font-medium text-gray-800">{comment.author}</div>
-            <div className="mt-1 text-sm leading-6 text-gray-600">{comment.text}</div>
+            <div className="text-sm font-medium text-gray-800">
+              {comment.author}
+            </div>
+            <div className="mt-1 text-sm leading-6 text-gray-600">
+              {comment.text}
+            </div>
           </div>
         ))}
       </div>
@@ -285,8 +343,12 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
               <span>·</span>
               <span>热度 {getPostHotScore(post)}</span>
             </div>
-            <h3 className="text-2xl font-bold leading-9 text-gray-900">{post.title}</h3>
-            <p className="mt-2 text-sm text-gray-500">不是一句情绪，而是一份更完整的经历记录。</p>
+            <h3 className="text-2xl font-bold leading-9 text-gray-900">
+              {post.title}
+            </h3>
+            <p className="mt-2 text-sm text-gray-500">
+              不是一句情绪，而是一份更完整的经历记录。
+            </p>
           </div>
           <button
             type="button"
@@ -319,9 +381,18 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
         </div>
 
         <div className="mt-5 space-y-4">
-          <ExpandableText text={post.summary} preview={100} maxLength={1000} />
+          <ExpandableText
+            text={post.summary}
+            preview={100}
+            maxLength={1000}
+          />
           <div className="rounded-2xl border border-purple-100 bg-purple-50 p-4">
-            <ExpandableText text={post.details} preview={120} maxLength={1000} textClassName="text-sm leading-7 text-gray-700" />
+            <ExpandableText
+              text={post.details}
+              preview={120}
+              maxLength={1000}
+              textClassName="text-sm leading-7 text-gray-700"
+            />
           </div>
         </div>
 
@@ -330,7 +401,10 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
             <ActionButton active={false} onClick={() => onLike(post.id)}>
               👍 赞同 {post.likes}
             </ActionButton>
-            <ActionButton active={false} onClick={() => setShowReactions(!showReactions)}>
+            <ActionButton
+              active={false}
+              onClick={() => setShowReactions(!showReactions)}
+            >
               💬 评论 {post.comments.length}
             </ActionButton>
             <ActionButton active={false} onClick={() => onSave(post.id)}>
@@ -339,12 +413,16 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
             <ActionButton active={false} onClick={() => onShare(post.id)}>
               ↗ 分享 {post.shares}
             </ActionButton>
-            <button type="button" className="px-2 py-2 text-xl text-gray-400">…</button>
+            <button type="button" className="px-2 py-2 text-xl text-gray-400">
+              …
+            </button>
           </div>
 
           {showReactions && (
             <div className="mt-4 rounded-2xl bg-gray-50 p-4">
-              <div className="mb-3 text-sm font-medium text-gray-700">更细的互动反馈</div>
+              <div className="mb-3 text-sm font-medium text-gray-700">
+                更细的互动反馈
+              </div>
               <div className="flex flex-wrap gap-2">
                 {reactionOptions.map((reaction) => (
                   <button
@@ -361,7 +439,9 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
               <div className="mt-4">
                 <textarea
                   value={commentInput}
-                  onChange={(e) => setCommentInput(e.target.value.slice(0, 1000))}
+                  onChange={(e) =>
+                    setCommentInput(e.target.value.slice(0, 1000))
+                  }
                   maxLength={1000}
                   placeholder="写下你的看法、补充经历，或者给出建设性建议。最多 1000 字。"
                   className="min-h-[96px] w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400"
@@ -403,18 +483,49 @@ export default function NotJustMeWebsite() {
     summary: "",
     details: "",
   });
-useEffect(() => {
-  fetchPosts();
-}, []);
 
-const fetchPosts = async () => {
-  const { data, error } = await supabase
-    .from("posts")
-    .select("*")
-    .order("created_at", { ascending: false });
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
-  if (!error) setPosts(data || []);
-};
+  const fetchPosts = async () => {
+    const { data, error } = await supabase
+      .from("posts")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Supabase fetch error:", error);
+      return;
+    }
+
+    const normalizedPosts = (data || []).map((item) => ({
+      id: item.id,
+      title: item.title,
+      authorIdentity: item.author_identity,
+      otherPartyIdentity: item.other_party_identity,
+      date: item.date,
+      location: item.location,
+      country: item.country,
+      summary: item.summary,
+      details: item.details,
+      reactions: item.reactions || {
+        same: 0,
+        shocked: 0,
+        support: 0,
+        angry: 0,
+        different: 0,
+        helpful: 0,
+      },
+      comments: item.comments || [],
+      likes: item.likes || 0,
+      saves: item.saves || 0,
+      shares: item.shares || 0,
+    }));
+
+    setPosts(normalizedPosts);
+  };
+
   const sortedPosts = useMemo(() => {
     return [...posts].sort((a, b) => getPostHotScore(b) - getPostHotScore(a));
   }, [posts]);
@@ -458,59 +569,61 @@ const fetchPosts = async () => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-const submitPost = async () => {
-  const requiredFields = [
-    "title",
-    "authorIdentity",
-    "otherPartyIdentity",
-    "date",
-    "location",
-    "country",
-    "summary",
-    "details",
-  ];
+  const submitPost = async () => {
+    const requiredFields = [
+      "title",
+      "authorIdentity",
+      "otherPartyIdentity",
+      "date",
+      "location",
+      "country",
+      "summary",
+      "details",
+    ];
 
-  const missing = requiredFields.filter(
-    (field) => !String(form[field]).trim()
-  );
+    const missing = requiredFields.filter(
+      (field) => !String(form[field]).trim()
+    );
 
-  if (missing.length > 0) {
-    alert("请把标题、身份、国家、日期、地点、经过概述和补充细节都填写完整。这样内容才真正能帮助别人。");
-    return;
-  }
+    if (missing.length > 0) {
+      alert(
+        "请把标题、身份、国家、日期、地点、经过概述和补充细节都填写完整。这样内容才真正能帮助别人。"
+      );
+      return;
+    }
 
-  const { error } = await supabase.from("posts").insert([
-    {
-      title: form.title,
-      summary: form.summary.slice(0, 1000),
-      details: form.details.slice(0, 1000),
-      author_identity: form.authorIdentity,
-      other_party_identity: form.otherPartyIdentity,
-      location: form.location,
-      country: form.country,
-      date: form.date,
-    },
-  ]);
+    const { error } = await supabase.from("posts").insert([
+      {
+        title: form.title,
+        summary: form.summary.slice(0, 1000),
+        details: form.details.slice(0, 1000),
+        author_identity: form.authorIdentity,
+        other_party_identity: form.otherPartyIdentity,
+        location: form.location,
+        country: form.country,
+        date: form.date,
+      },
+    ]);
 
-  if (error) {
-    console.error("Supabase insert error:", error);
-    alert("发布失败，请检查数据库字段或权限设置。");
-    return;
-  }
+    if (error) {
+      console.error("Supabase insert error:", error);
+      alert("发布失败，请检查数据库字段或权限设置。");
+      return;
+    }
 
-  await fetchPosts();
+    await fetchPosts();
 
-  setForm({
-    title: "",
-    authorIdentity: "",
-    otherPartyIdentity: "",
-    date: "",
-    location: "",
-    country: "",
-    summary: "",
-    details: "",
-  });
-};
+    setForm({
+      title: "",
+      authorIdentity: "",
+      otherPartyIdentity: "",
+      date: "",
+      location: "",
+      country: "",
+      summary: "",
+      details: "",
+    });
+  };
 
   const reactToPost = (postId, reactionKey) => {
     setPosts((prev) =>
@@ -535,7 +648,14 @@ const submitPost = async () => {
         post.id === postId
           ? {
               ...post,
-              comments: [...post.comments, { id: Date.now() + Math.random(), author: "匿名用户", text: safeText }],
+              comments: [
+                ...post.comments,
+                {
+                  id: Date.now() + Math.random(),
+                  author: "匿名用户",
+                  text: safeText,
+                },
+              ],
             }
           : post
       )
@@ -565,7 +685,10 @@ const submitPost = async () => {
           text: shareText,
           url: typeof window !== "undefined" ? window.location.href : "",
         });
-      } else if (typeof navigator !== "undefined" && navigator.clipboard) {
+      } else if (
+        typeof navigator !== "undefined" &&
+        navigator.clipboard
+      ) {
         await navigator.clipboard.writeText(shareText);
         alert("内容已复制，可以分享到其他平台。");
       } else {
@@ -590,15 +713,18 @@ const submitPost = async () => {
                 <span className="mx-3 text-purple-600">/</span>
                 <span className="text-purple-600">原来不止我</span>
               </h1>
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-gray-600">
+              <p className="mt-5 max-w-3xl whitespace-pre-line text-lg leading-8 text-gray-600">
                 欧洲不适/歧视/差别对待经历收录平台
-    这不是一个只让人发泄情绪的地方，而是一个鼓励大家把经历写得更完整、更具体、更能帮助彼此理解处境的平台。
+                {"\n"}
+                这不是一个只让人发泄情绪的地方，而是一个鼓励大家把经历写得更完整、更具体、更能帮助彼此理解处境的平台。
               </p>
             </div>
 
             <div className="rounded-[28px] border border-purple-100 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-bold text-gray-900">发布前建议</h3>
-              <p className="mt-2 text-sm text-gray-600">写得越具体，越能帮助后来的人。</p>
+              <p className="mt-2 text-sm text-gray-600">
+                写得越具体，越能帮助后来的人。
+              </p>
               <ul className="mt-4 space-y-3 text-sm leading-7 text-gray-600">
                 <li>请尽量写清你的身份、对方身份、国家、日期、地点和事情经过。</li>
                 <li>正文建议控制在 1000 字以内，但尽量把关键信息写完整。</li>
@@ -613,7 +739,9 @@ const submitPost = async () => {
           <div className="space-y-8">
             <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
               <h2 className="text-2xl font-bold text-gray-900">发布你的经历</h2>
-              <p className="mt-1 text-sm text-gray-600">每一条内容都应尽量完整，帮助更多人理解真实场景。</p>
+              <p className="mt-1 text-sm text-gray-600">
+                每一条内容都应尽量完整，帮助更多人理解真实场景。
+              </p>
 
               <div className="mt-6 grid gap-4 md:grid-cols-2">
                 <input
@@ -624,10 +752,14 @@ const submitPost = async () => {
                 />
 
                 <div className="rounded-2xl border border-gray-200 p-3">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">我的身份</label>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    我的身份
+                  </label>
                   <select
                     value={form.authorIdentity}
-                    onChange={(e) => updateForm("authorIdentity", e.target.value)}
+                    onChange={(e) =>
+                      updateForm("authorIdentity", e.target.value)
+                    }
                     className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
                   >
                     <option value="">请选择</option>
@@ -640,10 +772,14 @@ const submitPost = async () => {
                 </div>
 
                 <div className="rounded-2xl border border-gray-200 p-3">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">让我不舒服的人的身份</label>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    让我不舒服的人的身份
+                  </label>
                   <select
                     value={form.otherPartyIdentity}
-                    onChange={(e) => updateForm("otherPartyIdentity", e.target.value)}
+                    onChange={(e) =>
+                      updateForm("otherPartyIdentity", e.target.value)
+                    }
                     className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
                   >
                     <option value="">请选择</option>
@@ -656,7 +792,9 @@ const submitPost = async () => {
                 </div>
 
                 <div className="rounded-2xl border border-gray-200 p-3">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">发生国家</label>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    发生国家
+                  </label>
                   <select
                     value={form.country}
                     onChange={(e) => updateForm("country", e.target.value)}
@@ -672,7 +810,9 @@ const submitPost = async () => {
                 </div>
 
                 <div className="rounded-2xl border border-gray-200 p-3">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">发生日期</label>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    发生日期
+                  </label>
                   <input
                     type="date"
                     value={form.date}
@@ -682,7 +822,9 @@ const submitPost = async () => {
                 </div>
 
                 <div className="rounded-2xl border border-gray-200 p-3 md:col-span-2">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">发生地点</label>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    发生地点
+                  </label>
                   <input
                     value={form.location}
                     onChange={(e) => updateForm("location", e.target.value)}
@@ -692,27 +834,39 @@ const submitPost = async () => {
                 </div>
 
                 <div className="rounded-2xl border border-gray-200 p-3 md:col-span-2">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">事情经过概述</label>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    事情经过概述
+                  </label>
                   <textarea
                     value={form.summary}
-                    onChange={(e) => updateForm("summary", e.target.value.slice(0, 1000))}
+                    onChange={(e) =>
+                      updateForm("summary", e.target.value.slice(0, 1000))
+                    }
                     maxLength={1000}
                     placeholder="请写清当时发生了什么，最好让第一次看到的人也能读懂。最多 1000 字。"
                     className="min-h-[120px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
-                  <div className="mt-2 text-right text-xs text-gray-400">{form.summary.length}/1000</div>
+                  <div className="mt-2 text-right text-xs text-gray-400">
+                    {form.summary.length}/1000
+                  </div>
                 </div>
 
                 <div className="rounded-2xl border border-gray-200 p-3 md:col-span-2">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">补充细节与感受</label>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    补充细节与感受
+                  </label>
                   <textarea
                     value={form.details}
-                    onChange={(e) => updateForm("details", e.target.value.slice(0, 1000))}
+                    onChange={(e) =>
+                      updateForm("details", e.target.value.slice(0, 1000))
+                    }
                     maxLength={1000}
                     placeholder="你可以补充上下文、对比、自己的感受，以及这些细节为什么值得被记录。最多 1000 字。"
                     className="min-h-[140px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
-                  <div className="mt-2 text-right text-xs text-gray-400">{form.details.length}/1000</div>
+                  <div className="mt-2 text-right text-xs text-gray-400">
+                    {form.details.length}/1000
+                  </div>
                 </div>
               </div>
 
@@ -756,8 +910,12 @@ const submitPost = async () => {
             <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
               <h2 className="text-2xl font-bold text-gray-900">联系与反馈</h2>
               <div className="mt-4 rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
-                <p>如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：</p>
-                <p className="mt-2 font-semibold text-purple-700">contact.notjust.me@gmail.com</p>
+                <p>
+                  如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：
+                </p>
+                <p className="mt-2 font-semibold text-purple-700">
+                  contact.notjust.me@gmail.com
+                </p>
               </div>
             </div>
           </div>
@@ -767,7 +925,9 @@ const submitPost = async () => {
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">社区内容</h2>
-                  <p className="mt-1 text-sm text-gray-600">帖子会根据点赞、评论、分享、收藏和互动热度动态排序。</p>
+                  <p className="mt-1 text-sm text-gray-600">
+                    帖子会根据点赞、评论、分享、收藏和互动热度动态排序。
+                  </p>
                 </div>
                 <input
                   value={search}
@@ -782,7 +942,9 @@ const submitPost = async () => {
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <h3 className="text-lg font-bold text-gray-900">地区数据</h3>
-                  <p className="mt-1 text-sm text-gray-600">按国家统计当前社区里被提到的次数。</p>
+                  <p className="mt-1 text-sm text-gray-600">
+                    按国家统计当前社区里被提到的次数。
+                  </p>
                 </div>
                 <div className="rounded-full bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
                   共 {posts.length} 条帖子
