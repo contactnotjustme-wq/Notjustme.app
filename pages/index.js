@@ -813,11 +813,16 @@ export default function NotJustMeWebsite() {
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-2 text-sm font-medium text-purple-700">
                 让更多人愿意写下真实经历
               </div>
-              <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
-                <span className="text-gray-900">Not Just Me</span>
-                <span className="mx-3 text-purple-600">/</span>
-                <span className="text-purple-600">原来不止我</span>
-              </h1>
+             <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
+  <button
+    onClick={() => window.location.reload()}
+    className="flex items-center gap-3 hover:opacity-80 transition"
+  >
+    <span className="text-gray-900">Not Just Me</span>
+    <span className="text-purple-600">/</span>
+    <span className="text-purple-600">原来不止我</span>
+  </button>
+</h1>
               <p className="mt-5 max-w-3xl whitespace-pre-line text-lg leading-8 text-gray-600">
                 欧洲不适/歧视/差别对待经历收录平台
                 {"\n"}
