@@ -1013,11 +1013,7 @@ export default function NotJustMeWebsite() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-}
-<footer className="mt-12 border-t border-gray-200 pt-6 text-center text-xs text-gray-500">
+        <footer className="mt-12 border-t border-gray-200 pt-6 text-center text-xs text-gray-500">
   <p>© 2026 NotJustMe.app — All rights reserved.</p>
 
   <p className="mt-2">
@@ -1028,3 +1024,8 @@ export default function NotJustMeWebsite() {
     This platform is currently in Beta. Features and content may change as we improve the experience.
   </p>
 </footer>
+      </div>
+    </div>
+  );
+}
+
