@@ -5,8 +5,7 @@ const identityOptions = [
   "留学生",
   "本地华人",
   "外国人",
-  "本国人",
-  "本地人",
+  "挪威人/本地人",
   "其他",
 ];
 
@@ -41,7 +40,7 @@ const starterPosts = [
     date: "2026-03-29",
     location: "奥斯陆机场 OSL",
     summary:
-      "我排队到柜台时，前面几位欧洲面孔旅客都很顺利，轮到我后，对方语气明显变得敷衍，还反复质疑我的票是否有效。最后虽然办好了，但整个过程让我很不舒服。我大声告诉她我是商务舱的机票，但是她用手指着经济舱通道让我去排队，同行的挪威人也表示惊讶，但是我再次严肃的声明，business class，她才不情不愿的放我进去，就好像我占了便宜一样",
+      "我排队到柜台时，前面几位欧洲面孔旅客都很顺利，轮到我后，对方语气明显变得敷衍，还反复质疑我的票是否有效。最后虽然办好了，但整个过程让我很不舒服。我大声告诉她我是商务舱的机票，但是她用手指着经济舱通道让我去排队，同行的挪威人也表示惊讶，但是我再次严肃地声明 business class，她才不情不愿地放我进去，就好像我占了便宜一样。",
     details:
       "我希望写下来不是为了单纯发泄，而是让后来的人知道：如果你也遇到类似情况，可以记录下时间、地点、岗位身份和说话方式。这些信息会帮助别人判断这是个例，还是某些场景中经常出现的问题。",
     reactions: {
@@ -53,9 +52,21 @@ const starterPosts = [
       helpful: 8,
     },
     comments: [
-      { id: 11, author: "匿名用户A", text: "我在另一个欧洲机场也碰到过类似情况，后来发现把过程记详细真的很重要。" },
-      { id: 12, author: "匿名用户B", text: "谢谢你写得这么具体，这样别人才能知道不是一句‘态度不好’就结束了。" },
-      { id: 13, author: "匿名用户C", text: "建议以后补充当时有没有其他乘客在场、有没有排队顺序问题。" },
+      {
+        id: 11,
+        author: "匿名用户A",
+        text: "我在另一个欧洲机场也碰到过类似情况，后来发现坚持自己的原则真的很重要。",
+      },
+      {
+        id: 12,
+        author: "匿名用户B",
+        text: "谢谢你写得这么具体，这样别人才能知道不是一句‘态度不好’就结束了。",
+      },
+      {
+        id: 13,
+        author: "匿名用户C",
+        text: "这种经历真的会让人觉得被针对，也很难受。",
+      },
     ],
     likes: 24,
     saves: 8,
@@ -63,13 +74,13 @@ const starterPosts = [
   },
   {
     id: 2,
-    title: "二刷柏林三顾冒菜，被没有服务意识的员工恶心到了",
+    title: "在餐厅被默认安排到最角落的位置",
     authorIdentity: "留学生",
     otherPartyIdentity: "餐厅工作人员",
     date: "2026-02-14",
-    location: "柏林三顾冒菜",
+    location: "卑尔根市中心",
     summary:
-      "今天赶着11.30开门营业后进店的，大部分都是华人朋友，店员一路上保持极简的交流。买单时要了一碗米饭两欧，但是取餐的时候，我说为什么我的米饭没有，她却反问我你点了每天，旁边盛饭的师傅也是盛气凌人，说这个是收费的，那个女收银员就把我放到一边，说等一下，等结了两个人的帐之后，才慢慢的把我结账的单子打出来，说付了31欧，一碗米饭两欧，才把米饭给了我，全程没有一句道歉，像是我欠了他们一样，也不知道是开门忙着赚钱，今天的冒菜都没有煮太熟，就上了，经典川味也更本就没什么味道，还让我选辣度，更本一点味道都没有。",
+      "店里明明有不少空位，但店员看了我一眼后，把我安排到靠近后厨和通道的位置。后面来的两组白人客人却被安排在窗边。",
     details:
       "这件事单看似乎很小，但那种‘你被自动放到次等位置’的感觉很真实。网站上如果能把身份、具体地点、日期都记录清楚，就能帮助大家看见这种难以量化的不适。",
     reactions: {
@@ -116,6 +127,62 @@ const starterPosts = [
     likes: 19,
     saves: 7,
     shares: 4,
+  },
+  {
+    id: 4,
+    title: "酒店前台对我和朋友的态度完全不同",
+    authorIdentity: "本地华人",
+    otherPartyIdentity: "酒店工作人员",
+    date: "2025-12-22",
+    location: "斯塔万格",
+    summary:
+      "我和朋友一起入住，朋友先上前沟通时一切正常，轮到我提问时，前台明显变得不耐烦，还用一种像在训人的语气回答。",
+    details:
+      "最刺痛我的不是一句具体的话，而是同一场景下，对不同人的默认态度差异。这个网站如果想让大家愿意填写，就必须让叙述结构足够明确、足够被看见，也足够被理解。",
+    reactions: {
+      same: 16,
+      shocked: 6,
+      support: 18,
+      angry: 8,
+      different: 4,
+      helpful: 7,
+    },
+    comments: [
+      { id: 41, author: "匿名用户J", text: "这真的很常见，但大家通常不会详细记下来。" },
+      { id: 42, author: "匿名用户K", text: "建议以后也可以加上‘是否有同伴在场’这个字段。" },
+      { id: 43, author: "匿名用户L", text: "谢谢你写出来，我看到会更有勇气发自己的经历。" },
+    ],
+    likes: 16,
+    saves: 6,
+    shares: 3,
+  },
+  {
+    id: 5,
+    title: "二刷柏林三顾冒菜，被没有服务意识的员工恶心到了",
+    authorIdentity: "留学生",
+    otherPartyIdentity: "商店工作人员",
+    date: "2026-03-03",
+    location: "柏林三顾冒菜",
+    summary:
+      "今天赶着 11:30 开门营业后进店的，大部分都是华人朋友，店员一路上保持极简的交流。买单时要了一碗米饭两欧，但是取餐的时候，我说为什么我的米饭没有，她却反问我你点了没有，旁边盛饭的师傅也是盛气凌人，说这个是收费的。那个女收银员就把我放到一边，说等一下，等结了两个人的账之后，才慢慢地把我结账的单子打出来，说付了 31 欧，一碗米饭两欧，才把米饭给了我，全程没有一句道歉，像是我欠了他们一样。也不知道是开门忙着赚钱，今天的冒菜都没有煮太熟就上了，经典川味也根本没什么味道，还让我选辣度，根本一点味道都没有。",
+    details:
+      "这种经历很难用一句话说明白，所以我特别支持把网站做成鼓励完整记录的形式，而不是只留下一句情绪宣泄。越具体，越能帮助后来的人理解情境。",
+    reactions: {
+      same: 25,
+      shocked: 12,
+      support: 19,
+      angry: 21,
+      different: 4,
+      helpful: 15,
+    },
+    comments: [
+      { id: 51, author: "匿名用户O", text: "这个我在德国别的城市也有过。" },
+      { id: 52, author: "匿名用户P", text: "内容写得很具体，看到地点和日期会更有真实感。" },
+      { id: 53, author: "匿名用户Q", text: "希望之后能有地区筛选。" },
+    ],
+    likes: 27,
+    saves: 9,
+    shares: 5,
   },
 ];
 
@@ -512,7 +579,7 @@ export default function NotJustMeWebsite() {
                   <input
                     value={form.location}
                     onChange={(e) => updateForm("location", e.target.value)}
-                    placeholder="例如：伦敦希思罗机场 / 巴黎某餐厅 / 柏林某博物馆"
+                    placeholder="例如：奥斯陆机场 / 某餐厅 / 某博物馆"
                     className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
                   />
                 </div>
@@ -578,7 +645,7 @@ export default function NotJustMeWebsite() {
               <h2 className="text-2xl font-bold text-gray-900">联系与反馈</h2>
               <div className="mt-4 rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
                 <p>如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：</p>
-                <p className="mt-2 font-semibold text-purple-700">contact.notjust.me@gmail.com</p>
+                <p className="mt-2 font-semibold text-purple-700">contact@notjustme.site</p>
               </div>
             </div>
           </div>
