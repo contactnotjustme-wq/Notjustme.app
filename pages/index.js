@@ -563,10 +563,11 @@ export default function NotJustMeWebsite() {
               <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
                 <span className="text-gray-900">Not Just Me</span>
                 <span className="mx-3 text-purple-600">/</span>
-                <span className="text-purple-600">不仅仅是我</span>
+                <span className="text-purple-600">原来不止我</span>
               </h1>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-gray-600">
-                这不是一个只让人发泄情绪的地方，而是一个鼓励大家把经历写得更完整、更具体、更能帮助彼此理解处境的平台。
+                欧洲不适/歧视/差别对待经历收录平台
+    这不是一个只让人发泄情绪的地方，而是一个鼓励大家把经历写得更完整、更具体、更能帮助彼此理解处境的平台。
               </p>
             </div>
 
