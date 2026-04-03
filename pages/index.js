@@ -1,35 +1,11 @@
 import React, { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  MessageSquare,
-  Share2,
-  Mail,
-  MapPin,
-  Calendar,
-  User,
-  Building2,
-  ChevronDown,
-  ChevronUp,
-  Sparkles,
-  Search,
-  Info,
-  Send,
-  HeartHandshake,
-} from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 
 const identityOptions = [
   "游客",
   "留学生",
   "本地华人",
   "外国人",
-  "外国人",
-  "本地人",
+  "挪威人/本地人",
   "其他",
 ];
 
@@ -64,7 +40,7 @@ const starterPosts = [
     date: "2026-03-29",
     location: "奥斯陆机场 OSL",
     summary:
-      "我排队到柜台时，前面几位欧洲面孔旅客都很顺利，轮到我后，对方语气明显变得敷衍，还反复质疑我的票是否有效。最后虽然办好了，但整个过程让我很不舒服。我大声告诉她我是商务舱的机票，但是她用手指着经济舱通道让我去排队，同行的挪威人也表示惊讶，但是我再次严肃的声明，business class，她才不情不愿的放我进去，就好像我占了便宜一样",
+      "我排队到柜台时，前面几位欧洲面孔旅客都很顺利，轮到我后，对方语气明显变得敷衍，还反复质疑我的票是否有效。最后虽然办好了，但整个过程让我很不舒服。",
     details:
       "我希望写下来不是为了单纯发泄，而是让后来的人知道：如果你也遇到类似情况，可以记录下时间、地点、岗位身份和说话方式。这些信息会帮助别人判断这是个例，还是某些场景中经常出现的问题。",
     reactions: {
@@ -76,22 +52,13 @@ const starterPosts = [
       helpful: 8,
     },
     comments: [
-      {
-        id: 11,
-        author: "匿名用户A",
-        text: "我在另一个欧洲机场也碰到过类似情况，后来发现坚持自己的原则真的很重要。",
-      },
-      {
-        id: 12,
-        author: "匿名用户B",
-        text: "谢谢你写得这么具体，这样别人才能知道不是一句‘态度不好’就结束了。",
-      },
-      {
-        id: 13,
-        author: "匿名用户C",
-        text: "白人的世界就是这么简单、排斥你不需要理由，全凭她的心情。",
-      },
+      { id: 11, author: "匿名用户A", text: "我在另一个欧洲机场也碰到过类似情况，后来发现把过程记详细真的很重要。" },
+      { id: 12, author: "匿名用户B", text: "谢谢你写得这么具体，这样别人才能知道不是一句‘态度不好’就结束了。" },
+      { id: 13, author: "匿名用户C", text: "建议以后补充当时有没有其他乘客在场、有没有排队顺序问题。" },
     ],
+    likes: 24,
+    saves: 8,
+    shares: 5,
   },
   {
     id: 2,
@@ -99,7 +66,7 @@ const starterPosts = [
     authorIdentity: "留学生",
     otherPartyIdentity: "餐厅工作人员",
     date: "2026-02-14",
-    location: "奥斯陆市中心",
+    location: "卑尔根市中心",
     summary:
       "店里明明有不少空位，但店员看了我一眼后，把我安排到靠近后厨和通道的位置。后面来的两组白人客人却被安排在窗边。",
     details:
@@ -118,6 +85,9 @@ const starterPosts = [
       { id: 23, author: "匿名用户F", text: "建议加一个字段：当时店内是否拥挤。" },
       { id: 24, author: "匿名用户G", text: "谢谢分享，让我知道不是自己太敏感。" },
     ],
+    likes: 31,
+    saves: 10,
+    shares: 6,
   },
   {
     id: 3,
@@ -142,148 +112,63 @@ const starterPosts = [
       { id: 31, author: "匿名用户H", text: "你写得很完整，我觉得这种记录方式特别有意义。" },
       { id: 32, author: "匿名用户I", text: "有些经历就是靠大家一点点写出来，才知道并不是孤例。" },
     ],
-  },
-  {
-    id: 4,
-    title: "酒店前台对我和朋友的态度完全不同",
-    authorIdentity: "本地华人",
-    otherPartyIdentity: "酒店工作人员",
-    date: "2025-12-22",
-    location: "斯塔万格",
-    summary:
-      "我和朋友一起入住，朋友先上前沟通时一切正常，轮到我提问时，前台明显变得不耐烦，还用一种像在训人的语气回答。",
-    details:
-      "最刺痛我的不是一句具体的话，而是同一场景下，对不同人的默认态度差异。这个网站如果想让大家愿意填写，就必须让叙述结构足够明确、足够被看见，也足够被理解。",
-    reactions: {
-      same: 16,
-      shocked: 6,
-      support: 18,
-      angry: 8,
-      different: 4,
-      helpful: 7,
-    },
-    comments: [
-      { id: 41, author: "匿名用户J", text: "这真的很常见，但大家通常不会详细记下来。" },
-      { id: 42, author: "匿名用户K", text: "建议以后也可以加上‘是否有同伴在场’这个字段。" },
-      { id: 43, author: "匿名用户L", text: "谢谢你写出来，我看到会更有勇气发自己的经历。" },
-      { id: 44, author: "匿名用户M", text: "这种对比尤其让人难受，因为你知道问题不是沟通本身。" },
-      { id: 45, author: "匿名用户N", text: "评论多的时候折叠起来会更好，现在这样已经很好了。" },
-    ],
-  },
-  {
-    id: 5,
-    title: "二刷柏林三顾冒菜，被没有服务意识的员工恶心到了",
-    authorIdentity: "留学生",
-    otherPartyIdentity: "商店工作人员",
-    date: "2026-03-03",
-    location: "柏林三顾冒菜",
-    summary:
-      "今天赶着11.30开门营业后进店的，大部分都是华人朋友，店员一路上保持极简的交流。买单时要了一碗米饭两欧，但是取餐的时候，我说为什么我的米饭没有，她却反问我你点了每天，旁边盛饭的师傅也是盛气凌人，说这个是收费的，那个女收银员就把我放到一边，说等一下，等结了两个人的帐之后，才慢慢的把我结账的单子打出来，说付了31欧，一碗米饭两欧，才把米饭给了我，全程没有一句道歉，像是我欠了他们一样，也不知道是开门忙着赚钱，今天的冒菜都没有煮太熟，就上了，经典川味也更本就没什么味道，还让我选辣度，更本一点味道都没有。",
-    details:
-      "这种经历很难用一句话说明白，所以我特别支持把网站做成鼓励完整记录的形式，而不是只留下一句情绪宣泄。越具体，越能帮助后来的人理解情境。",
-    reactions: {
-      same: 25,
-      shocked: 12,
-      support: 19,
-      angry: 21,
-      different: 4,
-      helpful: 15,
-    },
-    comments: [
-      { id: 51, author: "匿名用户O", text: "这个我在德国别的城市也有过。" },
-      { id: 52, author: "匿名用户P", text: "内容写得很具体，看到地点和日期会更有真实感。" },
-      { id: 53, author: "匿名用户Q", text: "希望之后能有地区筛选。" },
-    ],
+    likes: 19,
+    saves: 7,
+    shares: 4,
   },
 ];
 
-function SectionTitle({ icon: Icon, title, subtitle }) {
+function ActionButton({ active, children, onClick }) {
   return (
-    <div className="flex items-start gap-3">
-      <div className="rounded-2xl bg-purple-100 p-3 text-purple-700">
-        <Icon className="h-5 w-5" />
-      </div>
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">{title}</h2>
-        <p className="mt-1 text-sm text-slate-600">{subtitle}</p>
-      </div>
-    </div>
+    <button
+      type="button"
+      onClick={onClick}
+      className={
+        "inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm transition " +
+        (active
+          ? "bg-blue-100 text-blue-700"
+          : "bg-gray-100 text-gray-600 hover:bg-gray-200")
+      }
+    >
+      {children}
+    </button>
   );
 }
 
 function CommentList({ comments }) {
   const [expanded, setExpanded] = useState(false);
-  const visibleComments = expanded ? comments : comments.slice(0, 2);
+  const shown = expanded ? comments : comments.slice(0, 2);
 
   return (
     <div className="mt-4">
       <div className="mb-3 flex items-center justify-between">
-        <p className="text-sm font-medium text-slate-700">
-          评论 {comments.length} 条 {comments.length > 2 ? "（已折叠）" : ""}
-        </p>
+        <div className="text-sm text-gray-500">{comments.length} 条评论</div>
         {comments.length > 2 && (
-          <Button
+          <button
             type="button"
-            variant="ghost"
-            size="sm"
-            className="rounded-xl"
-            onClick={() => setExpanded((v) => !v)}
+            onClick={() => setExpanded(!expanded)}
+            className="text-sm text-blue-600 hover:text-blue-700"
           >
-            {expanded ? (
-              <>
-                收起评论 <ChevronUp className="ml-1 h-4 w-4" />
-              </>
-            ) : (
-              <>
-                展开评论 <ChevronDown className="ml-1 h-4 w-4" />
-              </>
-            )}
-          </Button>
+            {expanded ? "收起评论" : "展开更多评论"}
+          </button>
         )}
       </div>
 
       <div className="space-y-3">
-        <AnimatePresence initial={false}>
-          {visibleComments.map((comment) => (
-            <motion.div
-              key={comment.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              className="rounded-2xl border border-slate-200 bg-slate-50 p-3"
-            >
-              <p className="text-sm font-medium text-slate-800">{comment.author}</p>
-              <p className="mt-1 text-sm leading-6 text-slate-600">{comment.text}</p>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+        {shown.map((comment) => (
+          <div key={comment.id} className="rounded-2xl bg-gray-50 p-3">
+            <div className="text-sm font-medium text-gray-800">{comment.author}</div>
+            <div className="mt-1 text-sm leading-6 text-gray-600">{comment.text}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-function PostCard({ post, onReact, onAddComment }) {
+function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
   const [commentInput, setCommentInput] = useState("");
-  const sharePost = async () => {
-    const shareData = {
-      title: `${post.title} | Not Just Me`,
-      text: `${post.summary}\n\n地点：${post.location}｜日期：${post.date}`,
-      url: window.location.href,
-    };
-
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else if (navigator.clipboard) {
-        await navigator.clipboard.writeText(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
-        alert("链接和内容已复制，可以分享到其他平台。");
-      } else {
-        alert("当前浏览器不支持直接分享，请手动复制页面链接。");
-      }
-    } catch (error) {
-      console.error("Share failed", error);
-    }
-  };
+  const [showReactions, setShowReactions] = useState(false);
 
   const submitComment = () => {
     if (!commentInput.trim()) return;
@@ -292,107 +177,107 @@ function PostCard({ post, onReact, onAddComment }) {
   };
 
   return (
-    <motion.div layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-      <Card className="overflow-hidden rounded-[24px] border-slate-200 shadow-sm">
-        <CardHeader className="bg-gradient-to-r from-white via-purple-50 to-white">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <CardTitle className="text-xl leading-8 text-slate-900">{post.title}</CardTitle>
-              <CardDescription className="mt-2 text-sm text-slate-600">
-                不是一句情绪，而是一份更完整的经历记录。
-              </CardDescription>
-            </div>
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              className="rounded-2xl"
-              onClick={sharePost}
-              aria-label="分享帖子"
-            >
-              <Share2 className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardHeader>
-
-        <CardContent className="p-6">
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            <div className="rounded-2xl bg-slate-50 p-3 text-sm text-slate-700">
-              <div className="mb-1 flex items-center gap-2 font-medium text-slate-900">
-                <User className="h-4 w-4" /> 我的身份
-              </div>
-              {post.authorIdentity}
-            </div>
-            <div className="rounded-2xl bg-slate-50 p-3 text-sm text-slate-700">
-              <div className="mb-1 flex items-center gap-2 font-medium text-slate-900">
-                <Building2 className="h-4 w-4" /> 对方身份
-              </div>
-              {post.otherPartyIdentity}
-            </div>
-            <div className="rounded-2xl bg-slate-50 p-3 text-sm text-slate-700">
-              <div className="mb-1 flex items-center gap-2 font-medium text-slate-900">
-                <Calendar className="h-4 w-4" /> 发生日期
-              </div>
-              {post.date}
-            </div>
-            <div className="rounded-2xl bg-slate-50 p-3 text-sm text-slate-700">
-              <div className="mb-1 flex items-center gap-2 font-medium text-slate-900">
-                <MapPin className="h-4 w-4" /> 发生地点
-              </div>
-              {post.location}
-            </div>
-          </div>
-
-          <div className="mt-5 space-y-4">
-            <p className="text-base leading-7 text-slate-800">{post.summary}</p>
-            <div className="rounded-2xl border border-purple-100 bg-purple-50/60 p-4 text-sm leading-7 text-slate-700">
-              {post.details}
-            </div>
-          </div>
-
-          <Separator className="my-5" />
-
+    <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
+      <div className="border-b border-gray-100 bg-gradient-to-r from-white via-purple-50 to-white p-6">
+        <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="mb-3 text-sm font-medium text-slate-700">你看到这条内容后的反应</p>
-            <div className="flex flex-wrap gap-2">
-              {reactionOptions.map((reaction) => (
-                <Button
-                  key={reaction.key}
-                  type="button"
-                  variant="outline"
-                  className="rounded-2xl border-slate-200 bg-white"
-                  onClick={() => onReact(post.id, reaction.key)}
-                >
-                  {reaction.label}
-                  <Badge className="ml-2 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-100">
-                    {post.reactions[reaction.key] || 0}
-                  </Badge>
-                </Button>
-              ))}
-            </div>
+            <h3 className="text-2xl font-bold leading-9 text-gray-900">{post.title}</h3>
+            <p className="mt-2 text-sm text-gray-500">不是一句情绪，而是一份更完整的经历记录。</p>
           </div>
+          <button
+            type="button"
+            onClick={() => onShare(post.id)}
+            className="rounded-2xl border border-gray-200 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50"
+          >
+            分享
+          </button>
+        </div>
+      </div>
+
+      <div className="p-6">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <div className="rounded-2xl bg-gray-50 p-3 text-sm text-gray-700">
+            <div className="mb-1 font-medium text-gray-900">我的身份</div>
+            {post.authorIdentity}
+          </div>
+          <div className="rounded-2xl bg-gray-50 p-3 text-sm text-gray-700">
+            <div className="mb-1 font-medium text-gray-900">对方身份</div>
+            {post.otherPartyIdentity}
+          </div>
+          <div className="rounded-2xl bg-gray-50 p-3 text-sm text-gray-700">
+            <div className="mb-1 font-medium text-gray-900">发生日期</div>
+            {post.date}
+          </div>
+          <div className="rounded-2xl bg-gray-50 p-3 text-sm text-gray-700">
+            <div className="mb-1 font-medium text-gray-900">发生地点</div>
+            {post.location}
+          </div>
+        </div>
+
+        <div className="mt-5 space-y-4">
+          <p className="text-base leading-7 text-gray-800">{post.summary}</p>
+          <div className="rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
+            {post.details}
+          </div>
+        </div>
+
+        <div className="mt-6 border-t border-gray-100 pt-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <ActionButton active={false} onClick={() => onLike(post.id)}>
+              👍 赞同 {post.likes}
+            </ActionButton>
+            <ActionButton active={false} onClick={() => setShowReactions(!showReactions)}>
+              💬 添加评论
+            </ActionButton>
+            <ActionButton active={false} onClick={() => onSave(post.id)}>
+              ★ 收藏 {post.saves}
+            </ActionButton>
+            <ActionButton active={false} onClick={() => onShare(post.id)}>
+              ↗ 分享 {post.shares}
+            </ActionButton>
+            <button type="button" className="px-2 py-2 text-xl text-gray-400">…</button>
+          </div>
+
+          {showReactions && (
+            <div className="mt-4 rounded-2xl bg-gray-50 p-4">
+              <div className="mb-3 text-sm font-medium text-gray-700">更细的互动反馈</div>
+              <div className="flex flex-wrap gap-2">
+                {reactionOptions.map((reaction) => (
+                  <button
+                    key={reaction.key}
+                    type="button"
+                    onClick={() => onReact(post.id, reaction.key)}
+                    className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    {reaction.label} ({post.reactions[reaction.key] || 0})
+                  </button>
+                ))}
+              </div>
+
+              <div className="mt-4">
+                <textarea
+                  value={commentInput}
+                  onChange={(e) => setCommentInput(e.target.value)}
+                  placeholder="写下你的看法、补充经历，或者给出建设性建议。"
+                  className="min-h-[96px] w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400"
+                />
+                <div className="mt-3 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={submitComment}
+                    className="rounded-2xl bg-purple-600 px-5 py-2 text-sm font-medium text-white hover:bg-purple-700"
+                  >
+                    发布评论
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           <CommentList comments={post.comments} />
-
-          <div className="mt-4 rounded-2xl border border-slate-200 p-3">
-            <div className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-700">
-              <MessageSquare className="h-4 w-4" /> 写下你的看法
-            </div>
-            <div className="flex flex-col gap-3 md:flex-row">
-              <Textarea
-                value={commentInput}
-                onChange={(e) => setCommentInput(e.target.value)}
-                placeholder="你可以补充自己的经历、不同看法，或者给出建设性建议。"
-                className="min-h-[96px] rounded-2xl"
-              />
-              <Button onClick={submitComment} className="rounded-2xl md:self-end">
-                发布评论 <Send className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -428,20 +313,14 @@ export default function NotJustMeWebsite() {
     );
   }, [posts, search]);
 
-  const updateForm = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
+  const updateForm = (key, value) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  };
 
   const submitPost = () => {
-    const requiredFields = [
-      "title",
-      "authorIdentity",
-      "otherPartyIdentity",
-      "date",
-      "location",
-      "summary",
-      "details",
-    ];
-
+    const requiredFields = ["title", "authorIdentity", "otherPartyIdentity", "date", "location", "summary", "details"];
     const missing = requiredFields.filter((field) => !String(form[field]).trim());
+
     if (missing.length > 0) {
       alert("请把标题、身份、日期、地点、经过概述和补充细节都填写完整。这样内容才真正能帮助别人。");
       return;
@@ -459,6 +338,9 @@ export default function NotJustMeWebsite() {
         helpful: 0,
       },
       comments: [],
+      likes: 0,
+      saves: 0,
+      shares: 0,
     };
 
     setPosts((prev) => [newPost, ...prev]);
@@ -495,272 +377,244 @@ export default function NotJustMeWebsite() {
         post.id === postId
           ? {
               ...post,
-              comments: [
-                ...post.comments,
-                { id: Date.now() + Math.random(), author: "匿名用户", text },
-              ],
+              comments: [...post.comments, { id: Date.now() + Math.random(), author: "匿名用户", text }],
             }
           : post
       )
     );
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-purple-50 text-slate-900">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <motion.section
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="relative overflow-hidden rounded-[32px] border border-purple-100 bg-white p-8 shadow-sm"
-        >
-          <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-purple-100 blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-36 w-36 rounded-full bg-fuchsia-100 blur-3xl" />
+  const incrementField = (postId, field) => {
+    setPosts((prev) =>
+      prev.map((post) =>
+        post.id === postId ? { ...post, [field]: (post[field] || 0) + 1 } : post
+      )
+    );
+  };
 
-          <div className="relative grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+  const sharePost = async (postId) => {
+    const post = posts.find((item) => item.id === postId);
+    if (!post) return;
+
+    incrementField(postId, "shares");
+
+    const shareText = `${post.title}\n${post.summary}\n地点：${post.location}｜日期：${post.date}`;
+
+    try {
+      if (typeof navigator !== "undefined" && navigator.share) {
+        await navigator.share({
+          title: `${post.title} | Not Just Me`,
+          text: shareText,
+          url: typeof window !== "undefined" ? window.location.href : "",
+        });
+      } else if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText(shareText);
+        alert("内容已复制，可以分享到其他平台。");
+      } else {
+        alert("当前浏览器不支持直接分享，请手动复制内容。");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-purple-50 text-gray-900">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <section className="overflow-hidden rounded-[32px] border border-purple-100 bg-white p-8 shadow-sm">
+          <div className="grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
             <div>
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-2 text-sm font-medium text-purple-700">
-                <Sparkles className="h-4 w-4" /> 让更多人愿意写下真实经历
+                让更多人愿意写下真实经历
               </div>
               <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
-                <span className="text-slate-900">Not Just Me</span>
+                <span className="text-gray-900">Not Just Me</span>
                 <span className="mx-3 text-purple-600">/</span>
                 <span className="text-purple-600">不仅仅是我</span>
               </h1>
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+              <p className="mt-5 max-w-3xl text-lg leading-8 text-gray-600">
                 这不是一个只让人发泄情绪的地方，而是一个鼓励大家把经历写得更完整、更具体、更能帮助彼此理解处境的平台。
-                当一段不舒服的经历被认真记录下来，别人就更容易判断：这到底是偶发事件，还是很多人都曾遇到过的问题。
               </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Badge className="rounded-full bg-purple-100 px-4 py-2 text-purple-700 hover:bg-purple-100">记录身份信息</Badge>
-                <Badge className="rounded-full bg-purple-100 px-4 py-2 text-purple-700 hover:bg-purple-100">记录日期地点</Badge>
-                <Badge className="rounded-full bg-purple-100 px-4 py-2 text-purple-700 hover:bg-purple-100">多元反应与评论</Badge>
-                <Badge className="rounded-full bg-purple-100 px-4 py-2 text-purple-700 hover:bg-purple-100">可分享至其他平台</Badge>
-              </div>
             </div>
 
-            <Card className="rounded-[28px] border-purple-100 bg-white/90 shadow-sm backdrop-blur">
-              <CardContent className="p-6">
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="rounded-2xl bg-purple-100 p-3 text-purple-700">
-                    <Info className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900">发布前建议</h3>
-                    <p className="text-sm text-slate-600">写得越具体，越能帮助后来的人。</p>
-                  </div>
-                </div>
-                <ul className="space-y-3 text-sm leading-7 text-slate-600">
-                  <li>请尽量写清你的身份、对方身份、日期、地点和事情经过。</li>
-                  <li>描述你具体经历了什么，而不只是“态度不好”或“让我难受”。</li>
-                  <li>避免公开他人的私人信息，保护自己也保护他人。</li>
-                  <li>欢迎表达感受，但更鼓励提供能帮助别人判断情境的事实细节。</li>
-                </ul>
-              </CardContent>
-            </Card>
+            <div className="rounded-[28px] border border-purple-100 bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-bold text-gray-900">发布前建议</h3>
+              <p className="mt-2 text-sm text-gray-600">写得越具体，越能帮助后来的人。</p>
+              <ul className="mt-4 space-y-3 text-sm leading-7 text-gray-600">
+                <li>请尽量写清你的身份、对方身份、日期、地点和事情经过。</li>
+                <li>描述你具体经历了什么，而不只是“态度不好”或“让我难受”。</li>
+                <li>避免公开他人的私人信息，保护自己也保护他人。</li>
+                <li>欢迎表达感受，但更鼓励提供能帮助别人判断情境的事实细节。</li>
+              </ul>
+            </div>
           </div>
-        </motion.section>
+        </section>
 
         <div className="mt-8 grid gap-8 xl:grid-cols-[0.95fr_1.05fr]">
           <div className="space-y-8">
-            <Card className="rounded-[28px] border-slate-200 shadow-sm">
-              <CardContent className="p-6">
-                <SectionTitle
-                  icon={HeartHandshake}
-                  title="发布你的经历"
-                  subtitle="每一条内容都应尽量完整，帮助更多人理解真实场景。"
+            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900">发布你的经历</h2>
+              <p className="mt-1 text-sm text-gray-600">每一条内容都应尽量完整，帮助更多人理解真实场景。</p>
+
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                <input
+                  value={form.title}
+                  onChange={(e) => updateForm("title", e.target.value)}
+                  placeholder="帖子标题，例如：在某机场被区别对待"
+                  className="rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400 md:col-span-2"
                 />
 
-                <div className="mt-6 grid gap-4 md:grid-cols-2">
-                  <Input
-                    value={form.title}
-                    onChange={(e) => updateForm("title", e.target.value)}
-                    placeholder="帖子标题，例如：在某机场被区别对待"
-                    className="rounded-2xl md:col-span-2"
-                  />
-
-                  <div className="rounded-2xl border border-slate-200 p-3">
-                    <label className="mb-2 block text-sm font-medium text-slate-700">我的身份</label>
-                    <select
-                      value={form.authorIdentity}
-                      onChange={(e) => updateForm("authorIdentity", e.target.value)}
-                      className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none"
-                    >
-                      <option value="">请选择</option>
-                      {identityOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="rounded-2xl border border-slate-200 p-3">
-                    <label className="mb-2 block text-sm font-medium text-slate-700">让我不舒服的人的身份</label>
-                    <select
-                      value={form.otherPartyIdentity}
-                      onChange={(e) => updateForm("otherPartyIdentity", e.target.value)}
-                      className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none"
-                    >
-                      <option value="">请选择</option>
-                      {otherPartyOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="rounded-2xl border border-slate-200 p-3">
-                    <label className="mb-2 block text-sm font-medium text-slate-700">发生日期</label>
-                    <Input type="date" value={form.date} onChange={(e) => updateForm("date", e.target.value)} className="rounded-xl" />
-                  </div>
-
-                  <div className="rounded-2xl border border-slate-200 p-3">
-                    <label className="mb-2 block text-sm font-medium text-slate-700">发生地点</label>
-                    <Input
-                      value={form.location}
-                      onChange={(e) => updateForm("location", e.target.value)}
-                      placeholder="例如：奥斯陆机场 / 某餐厅 / 某博物馆"
-                      className="rounded-xl"
-                    />
-                  </div>
-
-                  <div className="md:col-span-2 rounded-2xl border border-slate-200 p-3">
-                    <label className="mb-2 block text-sm font-medium text-slate-700">事情经过概述</label>
-                    <Textarea
-                      value={form.summary}
-                      onChange={(e) => updateForm("summary", e.target.value)}
-                      placeholder="请写清当时发生了什么，最好让第一次看到的人也能读懂。"
-                      className="min-h-[120px] rounded-xl"
-                    />
-                  </div>
-
-                  <div className="md:col-span-2 rounded-2xl border border-slate-200 p-3">
-                    <label className="mb-2 block text-sm font-medium text-slate-700">补充细节与感受</label>
-                    <Textarea
-                      value={form.details}
-                      onChange={(e) => updateForm("details", e.target.value)}
-                      placeholder="你可以补充上下文、对比、自己的感受，以及这些细节为什么值得被记录。"
-                      className="min-h-[140px] rounded-xl"
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <Button onClick={submitPost} className="rounded-2xl bg-purple-600 hover:bg-purple-700">
-                    发布帖子
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="rounded-2xl"
-                    onClick={() =>
-                      setForm({
-                        title: "",
-                        authorIdentity: "",
-                        otherPartyIdentity: "",
-                        date: "",
-                        location: "",
-                        summary: "",
-                        details: "",
-                      })
-                    }
+                <div className="rounded-2xl border border-gray-200 p-3">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">我的身份</label>
+                  <select
+                    value={form.authorIdentity}
+                    onChange={(e) => updateForm("authorIdentity", e.target.value)}
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
                   >
-                    清空内容
-                  </Button>
+                    <option value="">请选择</option>
+                    {identityOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              </CardContent>
-            </Card>
 
-            <Card className="rounded-[28px] border-slate-200 shadow-sm">
-              <CardContent className="p-6">
-                <SectionTitle
-                  icon={Info}
-                  title="关于这个网站"
-                  subtitle="一个让经历被认真记录、认真阅读、认真回应的空间。"
-                />
-                <div className="mt-6 space-y-4 text-sm leading-7 text-slate-600">
-                  <p>
-                    这个网站的初衷，是让那些曾经让人感到委屈、被轻视、被区别对待、被误解的瞬间，不再只停留在心里。
-                    有些经历很小，小到别人一句“是不是你想多了”就能轻轻带过；但也正因为它们太常见、太细微，才更需要被认真写下来。
-                  </p>
-                  <p>
-                    你可以分享在机场、餐厅、酒店、景点、商店、学校、职场或其他公共场所中让你感到不舒服的经历。
-                    重点不是煽动情绪，而是通过更完整的信息，让更多人看见模式、理解情境，也让后来的人知道自己并不孤单。
-                  </p>
+                <div className="rounded-2xl border border-gray-200 p-3">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">让我不舒服的人的身份</label>
+                  <select
+                    value={form.otherPartyIdentity}
+                    onChange={(e) => updateForm("otherPartyIdentity", e.target.value)}
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
+                  >
+                    <option value="">请选择</option>
+                    {otherPartyOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              </CardContent>
-            </Card>
 
-            <Card className="rounded-[28px] border-slate-200 shadow-sm">
-              <CardContent className="p-6">
-                <SectionTitle
-                  icon={Sparkles}
-                  title="发布指南"
-                  subtitle="请尽量写得具体、克制、真实，让内容真正有参考价值。"
-                />
-                <div className="mt-6 grid gap-4 md:grid-cols-2">
-                  <div className="rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-600">
-                    <p className="font-semibold text-slate-900">建议写清楚：</p>
-                    <p>你的身份、对方身份、具体日期、地点、事情经过、周围环境，以及你为什么感到不舒服。</p>
-                  </div>
-                  <div className="rounded-2xl bg-slate-50 p-4 text-sm leading-7 text-slate-600">
-                    <p className="font-semibold text-slate-900">请避免：</p>
-                    <p>只写情绪不写事实、泄露私人信息、进行人身攻击、发布无法辨认上下文的片段化内容。</p>
-                  </div>
+                <div className="rounded-2xl border border-gray-200 p-3">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">发生日期</label>
+                  <input
+                    type="date"
+                    value={form.date}
+                    onChange={(e) => updateForm("date", e.target.value)}
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
+                  />
                 </div>
-              </CardContent>
-            </Card>
 
-            <Card className="rounded-[28px] border-slate-200 shadow-sm">
-              <CardContent className="p-6">
-                <SectionTitle
-                  icon={Mail}
-                  title="联系与反馈"
-                  subtitle="欢迎你提供改进建议，让这个网站一点点变得更完整。"
-                />
-                <div className="mt-6 rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-slate-700">
-                  <p>如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：</p>
-                  <p className="mt-2 font-semibold text-purple-700">contact@notjustme.site</p>
-                  <p className="mt-2">你也可以把你希望新增的栏目、筛选方式、地区分类、语言支持等意见发送到这个邮箱。</p>
+                <div className="rounded-2xl border border-gray-200 p-3">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">发生地点</label>
+                  <input
+                    value={form.location}
+                    onChange={(e) => updateForm("location", e.target.value)}
+                    placeholder="例如：奥斯陆机场 / 某餐厅 / 某博物馆"
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
+                  />
                 </div>
-              </CardContent>
-            </Card>
+
+                <div className="rounded-2xl border border-gray-200 p-3 md:col-span-2">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">事情经过概述</label>
+                  <textarea
+                    value={form.summary}
+                    onChange={(e) => updateForm("summary", e.target.value)}
+                    placeholder="请写清当时发生了什么，最好让第一次看到的人也能读懂。"
+                    className="min-h-[120px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
+                  />
+                </div>
+
+                <div className="rounded-2xl border border-gray-200 p-3 md:col-span-2">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">补充细节与感受</label>
+                  <textarea
+                    value={form.details}
+                    onChange={(e) => updateForm("details", e.target.value)}
+                    placeholder="你可以补充上下文、对比、自己的感受，以及这些细节为什么值得被记录。"
+                    className="min-h-[140px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={submitPost}
+                  className="rounded-2xl bg-purple-600 px-5 py-3 text-sm font-medium text-white hover:bg-purple-700"
+                >
+                  发布帖子
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setForm({
+                      title: "",
+                      authorIdentity: "",
+                      otherPartyIdentity: "",
+                      date: "",
+                      location: "",
+                      summary: "",
+                      details: "",
+                    })
+                  }
+                  className="rounded-2xl border border-gray-200 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50"
+                >
+                  清空内容
+                </button>
+              </div>
+            </div>
+
+            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900">关于这个网站</h2>
+              <p className="mt-4 text-sm leading-7 text-gray-600">
+                这个网站的初衷，是让那些曾经让人感到委屈、被轻视、被区别对待、被误解的瞬间，不再只停留在心里。
+                你可以分享在机场、餐厅、酒店、景点、商店、学校、职场或其他公共场所中让你感到不舒服的经历。
+              </p>
+            </div>
+
+            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900">联系与反馈</h2>
+              <div className="mt-4 rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
+                <p>如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：</p>
+                <p className="mt-2 font-semibold text-purple-700">contact@notjustme.site</p>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-6">
-            <Card className="rounded-[28px] border-slate-200 shadow-sm">
-              <CardContent className="p-6">
-                <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                  <SectionTitle
-                    icon={MessageSquare}
-                    title="社区内容"
-                    subtitle="这些示例内容已经补充为更完整的记录形式。"
-                  />
-                  <div className="relative w-full md:max-w-xs">
-                    <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                    <Input
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      placeholder="搜索标题、地点、身份…"
-                      className="rounded-2xl pl-10"
-                    />
-                  </div>
+            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">社区内容</h2>
+                  <p className="mt-1 text-sm text-gray-600">这些示例内容已经补充为更完整的记录形式。</p>
                 </div>
-              </CardContent>
-            </Card>
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="搜索标题、地点、身份…"
+                  className="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400 md:max-w-xs"
+                />
+              </div>
+            </div>
 
             <div className="space-y-6">
               {filteredPosts.length > 0 ? (
                 filteredPosts.map((post) => (
-                  <PostCard key={post.id} post={post} onReact={reactToPost} onAddComment={addComment} />
+                  <PostCard
+                    key={post.id}
+                    post={post}
+                    onReact={reactToPost}
+                    onLike={(id) => incrementField(id, "likes")}
+                    onSave={(id) => incrementField(id, "saves")}
+                    onShare={sharePost}
+                    onAddComment={addComment}
+                  />
                 ))
               ) : (
-                <Card className="rounded-[28px] border-slate-200 shadow-sm">
-                  <CardContent className="p-10 text-center text-slate-600">
-                    没有找到匹配内容，换个关键词试试。
-                  </CardContent>
-                </Card>
+                <div className="rounded-[28px] border border-gray-200 bg-white p-10 text-center text-gray-600 shadow-sm">
+                  没有找到匹配内容，换个关键词试试。
+                </div>
               )}
             </div>
           </div>
