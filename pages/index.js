@@ -1,3 +1,6 @@
+import { supabase } from "../lib/supabase";
+import { useEffect } from "react";
+
 import React, { useMemo, useState } from "react";
 
 const identityOptions = [
