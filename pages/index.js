@@ -1,8 +1,8 @@
-// ✅ FULL UPDATED VERSION (ZH-first + EN switch + feed preview + share)
+// ✅ UI UPGRADE VERSION (Brand + Footer + Guidelines)
 
 import { useEffect, useMemo, useState } from "react";
 
-const STORAGE_KEY = "notjustme_reports_v2";
+const STORAGE_KEY = "notjustme_reports_v3";
 
 const TEXT = {
   zh: {
@@ -22,26 +22,11 @@ const TEXT = {
     anonymous: "匿名",
     switch: "EN",
     shareBtn: "分享",
-    stats: "国家分布"
-  },
-  en: {
-    brandCN: "NotJustMe",
-    brandEN: "NotJustMe",
-    slogan: "Real stories. Shared patterns.",
-    share: "Share your story",
-    browse: "Browse",
-    city: "City",
-    country: "Country",
-    title: "Title",
-    details: "What happened?",
-    submit: "Submit",
-    similar: "I had similar experience",
-    different: "Not the same",
-    comment: "Add a comment...",
-    anonymous: "Anonymous",
-    switch: "中文",
-    shareBtn: "Share",
-    stats: "Country stats"
+    stats: "国家分布",
+    aboutTitle: "关于这个网站",
+    aboutText: "这是一个记录真实体验的平台。你可以分享那些让你感到不舒服、困惑、或者说不清的瞬间。通过其他人的反馈，帮助判断这些经历是否具有共性。",
+    guidelineTitle: "发布建议",
+    guidelineText: "请尽量描述事实经过，而不是直接下结论。避免公开个人隐私信息。尊重不同观点，保持理性讨论。"
   }
 };
 
@@ -65,9 +50,6 @@ function seed() {
 }
 
 export default function App(){
-  const [lang,setLang]=useState("zh");
-  const t = TEXT[lang];
-
   const [data,setData]=useState([]);
   const [form,setForm]=useState({city:"",country:"",title:"",details:""});
 
@@ -113,55 +95,50 @@ export default function App(){
     }:d));
   };
 
-  const share=(item)=>{
-    const text=`${item.title}\n${item.details.slice(0,50)}...\nhttps://notjustme.app`;
-    navigator.clipboard.writeText(text);
-    alert("已复制，可分享到小红书/微信");
-  };
-
   return (
     <div style={{maxWidth:600,margin:"0 auto",padding:16,fontFamily:"sans-serif"}}>
 
-      {/* header */}
-      <h1>{t.brandCN}</h1>
-      <h2 style={{marginTop:0}}>{t.brandEN}</h2>
-      <p>{t.slogan}</p>
+      {/* BRAND */}
+      <div style={{textAlign:"center",marginBottom:20}}>
+        <h1 style={{fontSize:32,fontWeight:800,color:"#6d28d9",margin:0}}>
+          不仅仅是我
+        </h1>
+        <h1 style={{fontSize:32,fontWeight:800,color:"#4f46e5",margin:0}}>
+          NotJustMe
+        </h1>
+        <p style={{color:"#666",marginTop:8}}>{TEXT.zh.slogan}</p>
+      </div>
 
-      <button onClick={()=>setLang(lang==="zh"?"en":"zh")}>{t.switch}</button>
+      {/* FORM */}
+      <h3>{TEXT.zh.share}</h3>
+      <input style={input} placeholder={TEXT.zh.city} value={form.city} onChange={e=>setForm({...form,city:e.target.value})}/>
+      <input style={input} placeholder={TEXT.zh.country} value={form.country} onChange={e=>setForm({...form,country:e.target.value})}/>
+      <input style={input} placeholder={TEXT.zh.title} value={form.title} onChange={e=>setForm({...form,title:e.target.value})}/>
+      <textarea style={input} placeholder={TEXT.zh.details} value={form.details} onChange={e=>setForm({...form,details:e.target.value})}/>
+      <button style={btn} onClick={submit}>{TEXT.zh.submit}</button>
 
-      {/* form */}
-      <h3>{t.share}</h3>
-      <input style={input} placeholder={t.city} value={form.city} onChange={e=>setForm({...form,city:e.target.value})}/>
-      <input style={input} placeholder={t.country} value={form.country} onChange={e=>setForm({...form,country:e.target.value})}/>
-      <input style={input} placeholder={t.title} value={form.title} onChange={e=>setForm({...form,title:e.target.value})}/>
-      <textarea style={input} placeholder={t.details} value={form.details} onChange={e=>setForm({...form,details:e.target.value})}/>
-      <button style={btn} onClick={submit}>{t.submit}</button>
-
-      {/* stats */}
-      <h3>{t.stats}</h3>
+      {/* STATS */}
+      <h3>{TEXT.zh.stats}</h3>
       {stats.map(([c,n])=>(
-        <div key={c}>{flag(c)} {lang==="zh"?"国家":""} {c} · {n}</div>
+        <div key={c}>{flag(c)} 国家 {c} · {n}</div>
       ))}
 
-      {/* feed */}
-      <h3>{t.browse}</h3>
+      {/* FEED */}
+      <h3>{TEXT.zh.browse}</h3>
       {data.map(d=>(
         <div key={d.id} style={card}>
           <b>{d.title}</b> {flag(d.country)}
-          <div style={{fontSize:12,color:"gray"}}>{d.city}, {d.country}</div>
-
-          {/* preview mode */}
+          <div style={{fontSize:12,color:"gray"}}>{d.city}, {d.country} · {TEXT.zh.anonymous}</div>
           <p>{d.details.slice(0,50)}...</p>
 
           <div style={{display:"flex",gap:10}}>
-            <button onClick={()=>vote(d.id,"like")}>{t.similar} 👍 {d.likes}</button>
-            <button onClick={()=>vote(d.id,"dislike")}>{t.different} 👎 {d.dislikes}</button>
-            <button onClick={()=>share(d)}>{t.shareBtn}</button>
+            <button onClick={()=>vote(d.id,"like")}>{TEXT.zh.similar} 👍 {d.likes}</button>
+            <button onClick={()=>vote(d.id,"dislike")}>{TEXT.zh.different} 👎 {d.dislikes}</button>
           </div>
 
           <div>
             {d.comments.map(c=>(<div key={c.id}>• {c.text}</div>))}
-            <input style={input} placeholder={t.comment} onKeyDown={e=>{
+            <input style={input} placeholder={TEXT.zh.comment} onKeyDown={e=>{
               if(e.key==="Enter"){
                 addComment(d.id,e.target.value);
                 e.target.value="";
@@ -171,10 +148,19 @@ export default function App(){
         </div>
       ))}
 
+      {/* FOOTER */}
+      <div style={{marginTop:40,paddingTop:20,borderTop:"1px solid #eee"}}>
+        <h3>{TEXT.zh.aboutTitle}</h3>
+        <p style={{color:"#555",lineHeight:1.6}}>{TEXT.zh.aboutText}</p>
+
+        <h3 style={{marginTop:20}}>{TEXT.zh.guidelineTitle}</h3>
+        <p style={{color:"#555",lineHeight:1.6}}>{TEXT.zh.guidelineText}</p>
+      </div>
+
     </div>
   );
 }
 
 const input={width:"100%",marginBottom:10,padding:10,border:"1px solid #ddd",borderRadius:8};
-const btn={width:"100%",padding:12,background:"#4f46e5",color:"white",border:"none",borderRadius:8};
+const btn={width:"100%",padding:12,background:"#6d28d9",color:"white",border:"none",borderRadius:8};
 const card={border:"1px solid #eee",padding:12,borderRadius:10,marginTop:10};
