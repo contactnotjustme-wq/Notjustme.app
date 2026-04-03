@@ -460,46 +460,59 @@ const fetchPosts = async () => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-  const submitPost = () => {
-    const requiredFields = ["title", "authorIdentity", "otherPartyIdentity", "date", "location", "country", "summary", "details"];
-    const missing = requiredFields.filter((field) => !String(form[field]).trim());
+const submitPost = async () => {
+  const requiredFields = [
+    "title",
+    "authorIdentity",
+    "otherPartyIdentity",
+    "date",
+    "location",
+    "country",
+    "summary",
+    "details",
+  ];
 
-    if (missing.length > 0) {
-      alert("请把标题、身份、国家、日期、地点、经过概述和补充细节都填写完整。这样内容才真正能帮助别人。");
-      return;
-    }
+  const missing = requiredFields.filter(
+    (field) => !String(form[field]).trim()
+  );
 
-    const newPost = {
-      id: Date.now(),
-      ...form,
+  if (missing.length > 0) {
+    alert("请把标题、身份、国家、日期、地点、经过概述和补充细节都填写完整。这样内容才真正能帮助别人。");
+    return;
+  }
+
+  const { error } = await supabase.from("posts").insert([
+    {
+      title: form.title,
       summary: form.summary.slice(0, 1000),
       details: form.details.slice(0, 1000),
-      reactions: {
-        same: 0,
-        shocked: 0,
-        support: 0,
-        angry: 0,
-        different: 0,
-        helpful: 0,
-      },
-      comments: [],
-      likes: 0,
-      saves: 0,
-      shares: 0,
-    };
+      author_identity: form.authorIdentity,
+      other_party_identity: form.otherPartyIdentity,
+      location: form.location,
+      country: form.country,
+      date: form.date,
+    },
+  ]);
 
-    setPosts((prev) => [newPost, ...prev]);
-    setForm({
-      title: "",
-      authorIdentity: "",
-      otherPartyIdentity: "",
-      date: "",
-      location: "",
-      country: "",
-      summary: "",
-      details: "",
-    });
-  };
+  if (error) {
+    console.error("Supabase insert error:", error);
+    alert("发布失败，请检查数据库字段或权限设置。");
+    return;
+  }
+
+  await fetchPosts();
+
+  setForm({
+    title: "",
+    authorIdentity: "",
+    otherPartyIdentity: "",
+    date: "",
+    location: "",
+    country: "",
+    summary: "",
+    details: "",
+  });
+};
 
   const reactToPost = (postId, reactionKey) => {
     setPosts((prev) =>
