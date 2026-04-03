@@ -1015,3 +1015,14 @@ export default function NotJustMeWebsite() {
     </div>
   );
 }
+<footer className="mt-12 border-t border-gray-200 pt-6 text-center text-xs text-gray-500">
+  <p>© 2026 NotJustMe.app — All rights reserved.</p>
+
+  <p className="mt-2">
+    本平台目前处于 Beta 测试阶段，部分功能和内容可能持续优化调整。
+  </p>
+
+  <p className="mt-1">
+    This platform is currently in Beta. Features and content may change as we improve the experience.
+  </p>
+</footer>
