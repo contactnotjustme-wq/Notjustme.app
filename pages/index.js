@@ -438,7 +438,7 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
           <div>
             <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-gray-600 ring-1 ring-gray-200">
               <span>{countryMeta.emoji}</span>
-              <span>{countryMeta.label}</span>
+              <span>{countryMeta.en} / {countryMeta.zh}</span>
               <span>·</span>
               <span>热度 {getPostHotScore(post)}</span>
             </div>
@@ -1069,7 +1069,7 @@ export default function NotJustMeWebsite() {
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-xl">{item.emoji}</span>
-                      <span>{item.label}</span>
+                      <span>{item.en} / {item.zh}</span>
                     </div>
                     <div className="rounded-full bg-white px-3 py-1 font-semibold text-gray-900 ring-1 ring-gray-200">
                       {item.count}
