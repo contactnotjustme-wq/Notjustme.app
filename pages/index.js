@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "../lib/supabase";
-import React, { useMemo, useState } from "react";
 
 const identityOptions = [
   "游客",
