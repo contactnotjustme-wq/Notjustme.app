@@ -5,7 +5,8 @@ const identityOptions = [
   "留学生",
   "本地华人",
   "外国人",
-  "挪威人/本地人",
+  "本国人",
+  "本地人",
   "其他",
 ];
 
@@ -31,6 +32,60 @@ const reactionOptions = [
   { key: "helpful", label: "这个信息很有帮助" },
 ];
 
+const countryOptions = [
+  { code: "AL", emoji: "🇦🇱", label: "阿尔巴尼亚" },
+  { code: "AD", emoji: "🇦🇩", label: "安道尔" },
+  { code: "AM", emoji: "🇦🇲", label: "亚美尼亚" },
+  { code: "AT", emoji: "🇦🇹", label: "奥地利" },
+  { code: "AZ", emoji: "🇦🇿", label: "阿塞拜疆" },
+  { code: "BY", emoji: "🇧🇾", label: "白俄罗斯" },
+  { code: "BE", emoji: "🇧🇪", label: "比利时" },
+  { code: "BA", emoji: "🇧🇦", label: "波黑" },
+  { code: "BG", emoji: "🇧🇬", label: "保加利亚" },
+  { code: "HR", emoji: "🇭🇷", label: "克罗地亚" },
+  { code: "CY", emoji: "🇨🇾", label: "塞浦路斯" },
+  { code: "CZ", emoji: "🇨🇿", label: "捷克" },
+  { code: "DK", emoji: "🇩🇰", label: "丹麦" },
+  { code: "EE", emoji: "🇪🇪", label: "爱沙尼亚" },
+  { code: "FI", emoji: "🇫🇮", label: "芬兰" },
+  { code: "FR", emoji: "🇫🇷", label: "法国" },
+  { code: "GE", emoji: "🇬🇪", label: "格鲁吉亚" },
+  { code: "DE", emoji: "🇩🇪", label: "德国" },
+  { code: "GR", emoji: "🇬🇷", label: "希腊" },
+  { code: "HU", emoji: "🇭🇺", label: "匈牙利" },
+  { code: "IS", emoji: "🇮🇸", label: "冰岛" },
+  { code: "IE", emoji: "🇮🇪", label: "爱尔兰" },
+  { code: "IT", emoji: "🇮🇹", label: "意大利" },
+  { code: "XK", emoji: "🇽🇰", label: "科索沃" },
+  { code: "LV", emoji: "🇱🇻", label: "拉脱维亚" },
+  { code: "LI", emoji: "🇱🇮", label: "列支敦士登" },
+  { code: "LT", emoji: "🇱🇹", label: "立陶宛" },
+  { code: "LU", emoji: "🇱🇺", label: "卢森堡" },
+  { code: "MT", emoji: "🇲🇹", label: "马耳他" },
+  { code: "MD", emoji: "🇲🇩", label: "摩尔多瓦" },
+  { code: "MC", emoji: "🇲🇨", label: "摩纳哥" },
+  { code: "ME", emoji: "🇲🇪", label: "黑山" },
+  { code: "NL", emoji: "🇳🇱", label: "荷兰" },
+  { code: "MK", emoji: "🇲🇰", label: "北马其顿" },
+  { code: "NO", emoji: "🇳🇴", label: "挪威" },
+  { code: "PL", emoji: "🇵🇱", label: "波兰" },
+  { code: "PT", emoji: "🇵🇹", label: "葡萄牙" },
+  { code: "RO", emoji: "🇷🇴", label: "罗马尼亚" },
+  { code: "RU", emoji: "🇷🇺", label: "俄罗斯" },
+  { code: "SM", emoji: "🇸🇲", label: "圣马力诺" },
+  { code: "RS", emoji: "🇷🇸", label: "塞尔维亚" },
+  { code: "SK", emoji: "🇸🇰", label: "斯洛伐克" },
+  { code: "SI", emoji: "🇸🇮", label: "斯洛文尼亚" },
+  { code: "ES", emoji: "🇪🇸", label: "西班牙" },
+  { code: "SE", emoji: "🇸🇪", label: "瑞典" },
+  { code: "CH", emoji: "🇨🇭", label: "瑞士" },
+  { code: "TR", emoji: "🇹🇷", label: "土耳其" },
+  { code: "UA", emoji: "🇺🇦", label: "乌克兰" },
+  { code: "GB", emoji: "🇬🇧", label: "英国" },
+  { code: "VA", emoji: "🇻🇦", label: "梵蒂冈" },
+  { code: "OTHER", emoji: "🌍", label: "其他" },
+];
+
 const starterPosts = [
   {
     id: 1,
@@ -39,8 +94,9 @@ const starterPosts = [
     otherPartyIdentity: "机场员工",
     date: "2026-03-29",
     location: "奥斯陆机场 OSL",
+    country: "NO",
     summary:
-      "我排队到柜台时，前面几位欧洲面孔旅客都很顺利，轮到我后，对方语气明显变得敷衍，还反复质疑我的票是否有效。最后虽然办好了，但整个过程让我很不舒服。我大声告诉她我是商务舱的机票，但是她用手指着经济舱通道让我去排队，同行的挪威人也表示惊讶，但是我再次严肃地声明 business class，她才不情不愿地放我进去，就好像我占了便宜一样。",
+      "我排队到柜台时，前面几位欧洲面孔旅客都很顺利，轮到我后，对方语气明显变得敷衍，还反复质疑我的票是否有效。最后虽然办好了，但整个过程让我很不舒服。我大声告诉她我是商务舱的机票，但是她用手指着经济舱通道让我去排队，同行的挪威人也表示惊讶，但是我再次严肃的声明，business class，她才不情不愿的放我进去，就好像我占了便宜一样。",
     details:
       "我希望写下来不是为了单纯发泄，而是让后来的人知道：如果你也遇到类似情况，可以记录下时间、地点、岗位身份和说话方式。这些信息会帮助别人判断这是个例，还是某些场景中经常出现的问题。",
     reactions: {
@@ -52,21 +108,9 @@ const starterPosts = [
       helpful: 8,
     },
     comments: [
-      {
-        id: 11,
-        author: "匿名用户A",
-        text: "我在另一个欧洲机场也碰到过类似情况，后来发现坚持自己的原则真的很重要。",
-      },
-      {
-        id: 12,
-        author: "匿名用户B",
-        text: "谢谢你写得这么具体，这样别人才能知道不是一句‘态度不好’就结束了。",
-      },
-      {
-        id: 13,
-        author: "匿名用户C",
-        text: "这种经历真的会让人觉得被针对，也很难受。",
-      },
+      { id: 11, author: "匿名用户A", text: "我在另一个欧洲机场也碰到过类似情况，后来发现把过程记详细真的很重要。" },
+      { id: 12, author: "匿名用户B", text: "谢谢你写得这么具体，这样别人才能知道不是一句‘态度不好’就结束了。" },
+      { id: 13, author: "匿名用户C", text: "建议以后补充当时有没有其他乘客在场、有没有排队顺序问题。" },
     ],
     likes: 24,
     saves: 8,
@@ -74,13 +118,14 @@ const starterPosts = [
   },
   {
     id: 2,
-    title: "在餐厅被默认安排到最角落的位置",
+    title: "二刷柏林三顾冒菜，被没有服务意识的员工恶心到了",
     authorIdentity: "留学生",
     otherPartyIdentity: "餐厅工作人员",
     date: "2026-02-14",
-    location: "卑尔根市中心",
+    location: "柏林三顾冒菜",
+    country: "DE",
     summary:
-      "店里明明有不少空位，但店员看了我一眼后，把我安排到靠近后厨和通道的位置。后面来的两组白人客人却被安排在窗边。",
+      "今天赶着11.30开门营业后进店的，大部分都是华人朋友，店员一路上保持极简的交流。买单时要了一碗米饭两欧，但是取餐的时候，我说为什么我的米饭没有，她却反问我你点了每天，旁边盛饭的师傅也是盛气凌人，说这个是收费的，那个女收银员就把我放到一边，说等一下，等结了两个人的帐之后，才慢慢的把我结账的单子打出来，说付了31欧，一碗米饭两欧，才把米饭给了我，全程没有一句道歉，像是我欠了他们一样，也不知道是开门忙着赚钱，今天的冒菜都没有煮太熟，就上了，经典川味也更本就没什么味道，还让我选辣度，更本一点味道都没有。",
     details:
       "这件事单看似乎很小，但那种‘你被自动放到次等位置’的感觉很真实。网站上如果能把身份、具体地点、日期都记录清楚，就能帮助大家看见这种难以量化的不适。",
     reactions: {
@@ -108,6 +153,7 @@ const starterPosts = [
     otherPartyIdentity: "博物馆/景点工作人员",
     date: "2026-01-08",
     location: "特隆赫姆某博物馆",
+    country: "NO",
     summary:
       "同行的朋友都很快通过，我却被要求反复打开包、解释随身物品。工作人员没有直接说什么，但语气和眼神让我非常不舒服。",
     details:
@@ -128,63 +174,19 @@ const starterPosts = [
     saves: 7,
     shares: 4,
   },
-  {
-    id: 4,
-    title: "酒店前台对我和朋友的态度完全不同",
-    authorIdentity: "本地华人",
-    otherPartyIdentity: "酒店工作人员",
-    date: "2025-12-22",
-    location: "斯塔万格",
-    summary:
-      "我和朋友一起入住，朋友先上前沟通时一切正常，轮到我提问时，前台明显变得不耐烦，还用一种像在训人的语气回答。",
-    details:
-      "最刺痛我的不是一句具体的话，而是同一场景下，对不同人的默认态度差异。这个网站如果想让大家愿意填写，就必须让叙述结构足够明确、足够被看见，也足够被理解。",
-    reactions: {
-      same: 16,
-      shocked: 6,
-      support: 18,
-      angry: 8,
-      different: 4,
-      helpful: 7,
-    },
-    comments: [
-      { id: 41, author: "匿名用户J", text: "这真的很常见，但大家通常不会详细记下来。" },
-      { id: 42, author: "匿名用户K", text: "建议以后也可以加上‘是否有同伴在场’这个字段。" },
-      { id: 43, author: "匿名用户L", text: "谢谢你写出来，我看到会更有勇气发自己的经历。" },
-    ],
-    likes: 16,
-    saves: 6,
-    shares: 3,
-  },
-  {
-    id: 5,
-    title: "二刷柏林三顾冒菜，被没有服务意识的员工恶心到了",
-    authorIdentity: "留学生",
-    otherPartyIdentity: "商店工作人员",
-    date: "2026-03-03",
-    location: "柏林三顾冒菜",
-    summary:
-      "今天赶着 11:30 开门营业后进店的，大部分都是华人朋友，店员一路上保持极简的交流。买单时要了一碗米饭两欧，但是取餐的时候，我说为什么我的米饭没有，她却反问我你点了没有，旁边盛饭的师傅也是盛气凌人，说这个是收费的。那个女收银员就把我放到一边，说等一下，等结了两个人的账之后，才慢慢地把我结账的单子打出来，说付了 31 欧，一碗米饭两欧，才把米饭给了我，全程没有一句道歉，像是我欠了他们一样。也不知道是开门忙着赚钱，今天的冒菜都没有煮太熟就上了，经典川味也根本没什么味道，还让我选辣度，根本一点味道都没有。",
-    details:
-      "这种经历很难用一句话说明白，所以我特别支持把网站做成鼓励完整记录的形式，而不是只留下一句情绪宣泄。越具体，越能帮助后来的人理解情境。",
-    reactions: {
-      same: 25,
-      shocked: 12,
-      support: 19,
-      angry: 21,
-      different: 4,
-      helpful: 15,
-    },
-    comments: [
-      { id: 51, author: "匿名用户O", text: "这个我在德国别的城市也有过。" },
-      { id: 52, author: "匿名用户P", text: "内容写得很具体，看到地点和日期会更有真实感。" },
-      { id: 53, author: "匿名用户Q", text: "希望之后能有地区筛选。" },
-    ],
-    likes: 27,
-    saves: 9,
-    shares: 5,
-  },
 ];
+
+function getCountryMeta(countryCode) {
+  return (
+    countryOptions.find((item) => item.code === countryCode) ||
+    countryOptions.find((item) => item.code === "OTHER")
+  );
+}
+
+function getPostHotScore(post) {
+  const reactionTotal = Object.values(post.reactions || {}).reduce((sum, value) => sum + value, 0);
+  return (post.likes || 0) * 3 + (post.comments?.length || 0) * 4 + (post.shares || 0) * 3 + (post.saves || 0) * 2 + reactionTotal;
+}
 
 function ActionButton({ active, children, onClick }) {
   return (
@@ -200,6 +202,32 @@ function ActionButton({ active, children, onClick }) {
     >
       {children}
     </button>
+  );
+}
+
+function ExpandableText({ text, preview = 100, maxLength = 1000, textClassName = "text-base leading-7 text-gray-800" }) {
+  const [expanded, setExpanded] = useState(false);
+
+  if (!text) return null;
+
+  const trimmedText = text.slice(0, maxLength);
+  const needsExpand = trimmedText.length > preview;
+  const visibleText = expanded || !needsExpand ? trimmedText : `${trimmedText.slice(0, preview)}...`;
+
+  return (
+    <div>
+      <p className={`${textClassName} whitespace-pre-wrap`}>{visibleText}</p>
+      {needsExpand && (
+        <button
+          type="button"
+          onClick={() => setExpanded((prev) => !prev)}
+          className="mt-2 text-sm font-medium text-purple-700 hover:text-purple-800"
+        >
+          {expanded ? "收起全文" : "展开全文"}
+        </button>
+      )}
+      <div className="mt-1 text-xs text-gray-400">正文最多建议 1000 字</div>
+    </div>
   );
 }
 
@@ -237,6 +265,7 @@ function CommentList({ comments }) {
 function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
   const [commentInput, setCommentInput] = useState("");
   const [showReactions, setShowReactions] = useState(false);
+  const countryMeta = getCountryMeta(post.country);
 
   const submitComment = () => {
     if (!commentInput.trim()) return;
@@ -249,6 +278,12 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
       <div className="border-b border-gray-100 bg-gradient-to-r from-white via-purple-50 to-white p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
+            <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-gray-600 ring-1 ring-gray-200">
+              <span>{countryMeta.emoji}</span>
+              <span>{countryMeta.label}</span>
+              <span>·</span>
+              <span>热度 {getPostHotScore(post)}</span>
+            </div>
             <h3 className="text-2xl font-bold leading-9 text-gray-900">{post.title}</h3>
             <p className="mt-2 text-sm text-gray-500">不是一句情绪，而是一份更完整的经历记录。</p>
           </div>
@@ -283,9 +318,9 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
         </div>
 
         <div className="mt-5 space-y-4">
-          <p className="text-base leading-7 text-gray-800">{post.summary}</p>
-          <div className="rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
-            {post.details}
+          <ExpandableText text={post.summary} preview={100} maxLength={1000} />
+          <div className="rounded-2xl border border-purple-100 bg-purple-50 p-4">
+            <ExpandableText text={post.details} preview={120} maxLength={1000} textClassName="text-sm leading-7 text-gray-700" />
           </div>
         </div>
 
@@ -295,7 +330,7 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
               👍 赞同 {post.likes}
             </ActionButton>
             <ActionButton active={false} onClick={() => setShowReactions(!showReactions)}>
-              💬 添加评论
+              💬 评论 {post.comments.length}
             </ActionButton>
             <ActionButton active={false} onClick={() => onSave(post.id)}>
               ★ 收藏 {post.saves}
@@ -325,10 +360,15 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
               <div className="mt-4">
                 <textarea
                   value={commentInput}
-                  onChange={(e) => setCommentInput(e.target.value)}
-                  placeholder="写下你的看法、补充经历，或者给出建设性建议。"
+                  onChange={(e) => setCommentInput(e.target.value.slice(0, 1000))}
+                  maxLength={1000}
+                  placeholder="写下你的看法、补充经历，或者给出建设性建议。最多 1000 字。"
                   className="min-h-[96px] w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400"
                 />
+                <div className="mt-2 flex items-center justify-between text-xs text-gray-400">
+                  <span>建议评论尽量具体、克制、有信息量</span>
+                  <span>{commentInput.length}/1000</span>
+                </div>
                 <div className="mt-3 flex justify-end">
                   <button
                     type="button"
@@ -358,20 +398,26 @@ export default function NotJustMeWebsite() {
     otherPartyIdentity: "",
     date: "",
     location: "",
+    country: "",
     summary: "",
     details: "",
   });
 
+  const sortedPosts = useMemo(() => {
+    return [...posts].sort((a, b) => getPostHotScore(b) - getPostHotScore(a));
+  }, [posts]);
+
   const filteredPosts = useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return posts;
-    return posts.filter((post) =>
+    if (!q) return sortedPosts;
+    return sortedPosts.filter((post) =>
       [
         post.title,
         post.authorIdentity,
         post.otherPartyIdentity,
         post.date,
         post.location,
+        post.country,
         post.summary,
         post.details,
       ]
@@ -379,24 +425,41 @@ export default function NotJustMeWebsite() {
         .toLowerCase()
         .includes(q)
     );
-  }, [posts, search]);
+  }, [sortedPosts, search]);
+
+  const countryStats = useMemo(() => {
+    const statsMap = posts.reduce((acc, post) => {
+      const code = post.country || "OTHER";
+      acc[code] = (acc[code] || 0) + 1;
+      return acc;
+    }, {});
+
+    return Object.entries(statsMap)
+      .map(([code, count]) => {
+        const meta = getCountryMeta(code);
+        return { ...meta, count };
+      })
+      .sort((a, b) => b.count - a.count);
+  }, [posts]);
 
   const updateForm = (key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
   const submitPost = () => {
-    const requiredFields = ["title", "authorIdentity", "otherPartyIdentity", "date", "location", "summary", "details"];
+    const requiredFields = ["title", "authorIdentity", "otherPartyIdentity", "date", "location", "country", "summary", "details"];
     const missing = requiredFields.filter((field) => !String(form[field]).trim());
 
     if (missing.length > 0) {
-      alert("请把标题、身份、日期、地点、经过概述和补充细节都填写完整。这样内容才真正能帮助别人。");
+      alert("请把标题、身份、国家、日期、地点、经过概述和补充细节都填写完整。这样内容才真正能帮助别人。");
       return;
     }
 
     const newPost = {
       id: Date.now(),
       ...form,
+      summary: form.summary.slice(0, 1000),
+      details: form.details.slice(0, 1000),
       reactions: {
         same: 0,
         shocked: 0,
@@ -418,6 +481,7 @@ export default function NotJustMeWebsite() {
       otherPartyIdentity: "",
       date: "",
       location: "",
+      country: "",
       summary: "",
       details: "",
     });
@@ -440,12 +504,13 @@ export default function NotJustMeWebsite() {
   };
 
   const addComment = (postId, text) => {
+    const safeText = text.slice(0, 1000);
     setPosts((prev) =>
       prev.map((post) =>
         post.id === postId
           ? {
               ...post,
-              comments: [...post.comments, { id: Date.now() + Math.random(), author: "匿名用户", text }],
+              comments: [...post.comments, { id: Date.now() + Math.random(), author: "匿名用户", text: safeText }],
             }
           : post
       )
@@ -509,8 +574,8 @@ export default function NotJustMeWebsite() {
               <h3 className="text-lg font-bold text-gray-900">发布前建议</h3>
               <p className="mt-2 text-sm text-gray-600">写得越具体，越能帮助后来的人。</p>
               <ul className="mt-4 space-y-3 text-sm leading-7 text-gray-600">
-                <li>请尽量写清你的身份、对方身份、日期、地点和事情经过。</li>
-                <li>描述你具体经历了什么，而不只是“态度不好”或“让我难受”。</li>
+                <li>请尽量写清你的身份、对方身份、国家、日期、地点和事情经过。</li>
+                <li>正文建议控制在 1000 字以内，但尽量把关键信息写完整。</li>
                 <li>避免公开他人的私人信息，保护自己也保护他人。</li>
                 <li>欢迎表达感受，但更鼓励提供能帮助别人判断情境的事实细节。</li>
               </ul>
@@ -565,6 +630,22 @@ export default function NotJustMeWebsite() {
                 </div>
 
                 <div className="rounded-2xl border border-gray-200 p-3">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">发生国家</label>
+                  <select
+                    value={form.country}
+                    onChange={(e) => updateForm("country", e.target.value)}
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
+                  >
+                    <option value="">请选择</option>
+                    {countryOptions.map((option) => (
+                      <option key={option.code} value={option.code}>
+                        {option.emoji} {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">发生日期</label>
                   <input
                     type="date"
@@ -574,12 +655,12 @@ export default function NotJustMeWebsite() {
                   />
                 </div>
 
-                <div className="rounded-2xl border border-gray-200 p-3">
+                <div className="rounded-2xl border border-gray-200 p-3 md:col-span-2">
                   <label className="mb-2 block text-sm font-medium text-gray-700">发生地点</label>
                   <input
                     value={form.location}
                     onChange={(e) => updateForm("location", e.target.value)}
-                    placeholder="例如：奥斯陆机场 / 某餐厅 / 某博物馆"
+                    placeholder="例如：伦敦希思罗机场 / 巴黎某餐厅 / 柏林某博物馆"
                     className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
                   />
                 </div>
@@ -588,20 +669,24 @@ export default function NotJustMeWebsite() {
                   <label className="mb-2 block text-sm font-medium text-gray-700">事情经过概述</label>
                   <textarea
                     value={form.summary}
-                    onChange={(e) => updateForm("summary", e.target.value)}
-                    placeholder="请写清当时发生了什么，最好让第一次看到的人也能读懂。"
+                    onChange={(e) => updateForm("summary", e.target.value.slice(0, 1000))}
+                    maxLength={1000}
+                    placeholder="请写清当时发生了什么，最好让第一次看到的人也能读懂。最多 1000 字。"
                     className="min-h-[120px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
+                  <div className="mt-2 text-right text-xs text-gray-400">{form.summary.length}/1000</div>
                 </div>
 
                 <div className="rounded-2xl border border-gray-200 p-3 md:col-span-2">
                   <label className="mb-2 block text-sm font-medium text-gray-700">补充细节与感受</label>
                   <textarea
                     value={form.details}
-                    onChange={(e) => updateForm("details", e.target.value)}
-                    placeholder="你可以补充上下文、对比、自己的感受，以及这些细节为什么值得被记录。"
+                    onChange={(e) => updateForm("details", e.target.value.slice(0, 1000))}
+                    maxLength={1000}
+                    placeholder="你可以补充上下文、对比、自己的感受，以及这些细节为什么值得被记录。最多 1000 字。"
                     className="min-h-[140px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
+                  <div className="mt-2 text-right text-xs text-gray-400">{form.details.length}/1000</div>
                 </div>
               </div>
 
@@ -622,6 +707,7 @@ export default function NotJustMeWebsite() {
                       otherPartyIdentity: "",
                       date: "",
                       location: "",
+                      country: "",
                       summary: "",
                       details: "",
                     })
@@ -645,7 +731,7 @@ export default function NotJustMeWebsite() {
               <h2 className="text-2xl font-bold text-gray-900">联系与反馈</h2>
               <div className="mt-4 rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
                 <p>如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：</p>
-                <p className="mt-2 font-semibold text-purple-700">contact@notjustme.site</p>
+                <p className="mt-2 font-semibold text-purple-700">contact.notjust.me@gmail.com</p>
               </div>
             </div>
           </div>
@@ -655,14 +741,43 @@ export default function NotJustMeWebsite() {
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">社区内容</h2>
-                  <p className="mt-1 text-sm text-gray-600">这些示例内容已经补充为更完整的记录形式。</p>
+                  <p className="mt-1 text-sm text-gray-600">帖子会根据点赞、评论、分享、收藏和互动热度动态排序。</p>
                 </div>
                 <input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="搜索标题、地点、身份…"
+                  placeholder="搜索标题、地点、身份、国家…"
                   className="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400 md:max-w-xs"
                 />
+              </div>
+            </div>
+
+            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">地区数据</h3>
+                  <p className="mt-1 text-sm text-gray-600">按国家统计当前社区里被提到的次数。</p>
+                </div>
+                <div className="rounded-full bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
+                  共 {posts.length} 条帖子
+                </div>
+              </div>
+
+              <div className="mt-4 grid max-h-[420px] gap-3 overflow-y-auto pr-1 sm:grid-cols-2">
+                {countryStats.map((item) => (
+                  <div
+                    key={item.code}
+                    className="flex items-center justify-between rounded-2xl bg-gray-50 px-4 py-3 text-sm text-gray-700"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-xl">{item.emoji}</span>
+                      <span>{item.label}</span>
+                    </div>
+                    <div className="rounded-full bg-white px-3 py-1 font-semibold text-gray-900 ring-1 ring-gray-200">
+                      {item.count}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
