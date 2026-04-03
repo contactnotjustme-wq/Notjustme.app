@@ -405,7 +405,18 @@ export default function NotJustMeWebsite() {
     summary: "",
     details: "",
   });
+useEffect(() => {
+  fetchPosts();
+}, []);
 
+const fetchPosts = async () => {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (!error) setPosts(data || []);
+};
   const sortedPosts = useMemo(() => {
     return [...posts].sort((a, b) => getPostHotScore(b) - getPostHotScore(a));
   }, [posts]);
