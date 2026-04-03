@@ -34,57 +34,156 @@ const reactionOptions = [
 ];
 
 const countryOptions = [
-  { code: "AL", emoji: "🇦🇱", label: "阿尔巴尼亚" },
-  { code: "AD", emoji: "🇦🇩", label: "安道尔" },
-  { code: "AM", emoji: "🇦🇲", label: "亚美尼亚" },
-  { code: "AT", emoji: "🇦🇹", label: "奥地利" },
-  { code: "AZ", emoji: "🇦🇿", label: "阿塞拜疆" },
-  { code: "BY", emoji: "🇧🇾", label: "白俄罗斯" },
-  { code: "BE", emoji: "🇧🇪", label: "比利时" },
-  { code: "BA", emoji: "🇧🇦", label: "波黑" },
-  { code: "BG", emoji: "🇧🇬", label: "保加利亚" },
-  { code: "HR", emoji: "🇭🇷", label: "克罗地亚" },
-  { code: "CY", emoji: "🇨🇾", label: "塞浦路斯" },
-  { code: "CZ", emoji: "🇨🇿", label: "捷克" },
-  { code: "DK", emoji: "🇩🇰", label: "丹麦" },
-  { code: "EE", emoji: "🇪🇪", label: "爱沙尼亚" },
-  { code: "FI", emoji: "🇫🇮", label: "芬兰" },
-  { code: "FR", emoji: "🇫🇷", label: "法国" },
-  { code: "GE", emoji: "🇬🇪", label: "格鲁吉亚" },
-  { code: "DE", emoji: "🇩🇪", label: "德国" },
-  { code: "GR", emoji: "🇬🇷", label: "希腊" },
-  { code: "HU", emoji: "🇭🇺", label: "匈牙利" },
-  { code: "IS", emoji: "🇮🇸", label: "冰岛" },
-  { code: "IE", emoji: "🇮🇪", label: "爱尔兰" },
-  { code: "IT", emoji: "🇮🇹", label: "意大利" },
-  { code: "XK", emoji: "🇽🇰", label: "科索沃" },
-  { code: "LV", emoji: "🇱🇻", label: "拉脱维亚" },
-  { code: "LI", emoji: "🇱🇮", label: "列支敦士登" },
-  { code: "LT", emoji: "🇱🇹", label: "立陶宛" },
-  { code: "LU", emoji: "🇱🇺", label: "卢森堡" },
-  { code: "MT", emoji: "🇲🇹", label: "马耳他" },
-  { code: "MD", emoji: "🇲🇩", label: "摩尔多瓦" },
-  { code: "MC", emoji: "🇲🇨", label: "摩纳哥" },
-  { code: "ME", emoji: "🇲🇪", label: "黑山" },
-  { code: "NL", emoji: "🇳🇱", label: "荷兰" },
-  { code: "MK", emoji: "🇲🇰", label: "北马其顿" },
-  { code: "NO", emoji: "🇳🇴", label: "挪威" },
-  { code: "PL", emoji: "🇵🇱", label: "波兰" },
-  { code: "PT", emoji: "🇵🇹", label: "葡萄牙" },
-  { code: "RO", emoji: "🇷🇴", label: "罗马尼亚" },
-  { code: "RU", emoji: "🇷🇺", label: "俄罗斯" },
-  { code: "SM", emoji: "🇸🇲", label: "圣马力诺" },
-  { code: "RS", emoji: "🇷🇸", label: "塞尔维亚" },
-  { code: "SK", emoji: "🇸🇰", label: "斯洛伐克" },
-  { code: "SI", emoji: "🇸🇮", label: "斯洛文尼亚" },
-  { code: "ES", emoji: "🇪🇸", label: "西班牙" },
-  { code: "SE", emoji: "🇸🇪", label: "瑞典" },
-  { code: "CH", emoji: "🇨🇭", label: "瑞士" },
-  { code: "TR", emoji: "🇹🇷", label: "土耳其" },
-  { code: "UA", emoji: "🇺🇦", label: "乌克兰" },
-  { code: "GB", emoji: "🇬🇧", label: "英国" },
-  { code: "VA", emoji: "🇻🇦", label: "梵蒂冈" },
-  { code: "OTHER", emoji: "🌍", label: "其他" },
+  // Europe / 欧洲
+  { code: "AL", emoji: "🇦🇱", en: "Albania", zh: "阿尔巴尼亚", region: "Europe / 欧洲" },
+  { code: "AD", emoji: "🇦🇩", en: "Andorra", zh: "安道尔", region: "Europe / 欧洲" },
+  { code: "AM", emoji: "🇦🇲", en: "Armenia", zh: "亚美尼亚", region: "Europe / 欧洲" },
+  { code: "AT", emoji: "🇦🇹", en: "Austria", zh: "奥地利", region: "Europe / 欧洲" },
+  { code: "AZ", emoji: "🇦🇿", en: "Azerbaijan", zh: "阿塞拜疆", region: "Europe / 欧洲" },
+  { code: "BY", emoji: "🇧🇾", en: "Belarus", zh: "白俄罗斯", region: "Europe / 欧洲" },
+  { code: "BE", emoji: "🇧🇪", en: "Belgium", zh: "比利时", region: "Europe / 欧洲" },
+  { code: "BA", emoji: "🇧🇦", en: "Bosnia and Herzegovina", zh: "波黑", region: "Europe / 欧洲" },
+  { code: "BG", emoji: "🇧🇬", en: "Bulgaria", zh: "保加利亚", region: "Europe / 欧洲" },
+  { code: "HR", emoji: "🇭🇷", en: "Croatia", zh: "克罗地亚", region: "Europe / 欧洲" },
+  { code: "CY", emoji: "🇨🇾", en: "Cyprus", zh: "塞浦路斯", region: "Europe / 欧洲" },
+  { code: "CZ", emoji: "🇨🇿", en: "Czech Republic", zh: "捷克", region: "Europe / 欧洲" },
+  { code: "DK", emoji: "🇩🇰", en: "Denmark", zh: "丹麦", region: "Europe / 欧洲" },
+  { code: "EE", emoji: "🇪🇪", en: "Estonia", zh: "爱沙尼亚", region: "Europe / 欧洲" },
+  { code: "FI", emoji: "🇫🇮", en: "Finland", zh: "芬兰", region: "Europe / 欧洲" },
+  { code: "FR", emoji: "🇫🇷", en: "France", zh: "法国", region: "Europe / 欧洲" },
+  { code: "GE", emoji: "🇬🇪", en: "Georgia", zh: "格鲁吉亚", region: "Europe / 欧洲" },
+  { code: "DE", emoji: "🇩🇪", en: "Germany", zh: "德国", region: "Europe / 欧洲" },
+  { code: "GR", emoji: "🇬🇷", en: "Greece", zh: "希腊", region: "Europe / 欧洲" },
+  { code: "HU", emoji: "🇭🇺", en: "Hungary", zh: "匈牙利", region: "Europe / 欧洲" },
+  { code: "IS", emoji: "🇮🇸", en: "Iceland", zh: "冰岛", region: "Europe / 欧洲" },
+  { code: "IE", emoji: "🇮🇪", en: "Ireland", zh: "爱尔兰", region: "Europe / 欧洲" },
+  { code: "IT", emoji: "🇮🇹", en: "Italy", zh: "意大利", region: "Europe / 欧洲" },
+  { code: "XK", emoji: "🇽🇰", en: "Kosovo", zh: "科索沃", region: "Europe / 欧洲" },
+  { code: "LV", emoji: "🇱🇻", en: "Latvia", zh: "拉脱维亚", region: "Europe / 欧洲" },
+  { code: "LI", emoji: "🇱🇮", en: "Liechtenstein", zh: "列支敦士登", region: "Europe / 欧洲" },
+  { code: "LT", emoji: "🇱🇹", en: "Lithuania", zh: "立陶宛", region: "Europe / 欧洲" },
+  { code: "LU", emoji: "🇱🇺", en: "Luxembourg", zh: "卢森堡", region: "Europe / 欧洲" },
+  { code: "MT", emoji: "🇲🇹", en: "Malta", zh: "马耳他", region: "Europe / 欧洲" },
+  { code: "MD", emoji: "🇲🇩", en: "Moldova", zh: "摩尔多瓦", region: "Europe / 欧洲" },
+  { code: "MC", emoji: "🇲🇨", en: "Monaco", zh: "摩纳哥", region: "Europe / 欧洲" },
+  { code: "ME", emoji: "🇲🇪", en: "Montenegro", zh: "黑山", region: "Europe / 欧洲" },
+  { code: "NL", emoji: "🇳🇱", en: "Netherlands", zh: "荷兰", region: "Europe / 欧洲" },
+  { code: "MK", emoji: "🇲🇰", en: "North Macedonia", zh: "北马其顿", region: "Europe / 欧洲" },
+  { code: "NO", emoji: "🇳🇴", en: "Norway", zh: "挪威", region: "Europe / 欧洲" },
+  { code: "PL", emoji: "🇵🇱", en: "Poland", zh: "波兰", region: "Europe / 欧洲" },
+  { code: "PT", emoji: "🇵🇹", en: "Portugal", zh: "葡萄牙", region: "Europe / 欧洲" },
+  { code: "RO", emoji: "🇷🇴", en: "Romania", zh: "罗马尼亚", region: "Europe / 欧洲" },
+  { code: "SM", emoji: "🇸🇲", en: "San Marino", zh: "圣马力诺", region: "Europe / 欧洲" },
+  { code: "RS", emoji: "🇷🇸", en: "Serbia", zh: "塞尔维亚", region: "Europe / 欧洲" },
+  { code: "SK", emoji: "🇸🇰", en: "Slovakia", zh: "斯洛伐克", region: "Europe / 欧洲" },
+  { code: "SI", emoji: "🇸🇮", en: "Slovenia", zh: "斯洛文尼亚", region: "Europe / 欧洲" },
+  { code: "ES", emoji: "🇪🇸", en: "Spain", zh: "西班牙", region: "Europe / 欧洲" },
+  { code: "SE", emoji: "🇸🇪", en: "Sweden", zh: "瑞典", region: "Europe / 欧洲" },
+  { code: "CH", emoji: "🇨🇭", en: "Switzerland", zh: "瑞士", region: "Europe / 欧洲" },
+  { code: "TR", emoji: "🇹🇷", en: "Turkey", zh: "土耳其", region: "Europe / 欧洲" },
+  { code: "UA", emoji: "🇺🇦", en: "Ukraine", zh: "乌克兰", region: "Europe / 欧洲" },
+  { code: "GB", emoji: "🇬🇧", en: "United Kingdom", zh: "英国", region: "Europe / 欧洲" },
+  { code: "VA", emoji: "🇻🇦", en: "Vatican City", zh: "梵蒂冈", region: "Europe / 欧洲" },
+
+  // Asia / 亚洲
+  { code: "AF", emoji: "🇦🇫", en: "Afghanistan", zh: "阿富汗", region: "Asia / 亚洲" },
+  { code: "BH", emoji: "🇧🇭", en: "Bahrain", zh: "巴林", region: "Asia / 亚洲" },
+  { code: "BD", emoji: "🇧🇩", en: "Bangladesh", zh: "孟加拉国", region: "Asia / 亚洲" },
+  { code: "BN", emoji: "🇧🇳", en: "Brunei", zh: "文莱", region: "Asia / 亚洲" },
+  { code: "KH", emoji: "🇰🇭", en: "Cambodia", zh: "柬埔寨", region: "Asia / 亚洲" },
+  { code: "CN", emoji: "🇨🇳", en: "China", zh: "中国", region: "Asia / 亚洲" },
+  { code: "HK", emoji: "🇭🇰", en: "Hong Kong", zh: "中国香港", region: "Asia / 亚洲" },
+  { code: "IN", emoji: "🇮🇳", en: "India", zh: "印度", region: "Asia / 亚洲" },
+  { code: "ID", emoji: "🇮🇩", en: "Indonesia", zh: "印度尼西亚", region: "Asia / 亚洲" },
+  { code: "IR", emoji: "🇮🇷", en: "Iran", zh: "伊朗", region: "Asia / 亚洲" },
+  { code: "IQ", emoji: "🇮🇶", en: "Iraq", zh: "伊拉克", region: "Asia / 亚洲" },
+  { code: "IL", emoji: "🇮🇱", en: "Israel", zh: "以色列", region: "Asia / 亚洲" },
+  { code: "JP", emoji: "🇯🇵", en: "Japan", zh: "日本", region: "Asia / 亚洲" },
+  { code: "JO", emoji: "🇯🇴", en: "Jordan", zh: "约旦", region: "Asia / 亚洲" },
+  { code: "KZ", emoji: "🇰🇿", en: "Kazakhstan", zh: "哈萨克斯坦", region: "Asia / 亚洲" },
+  { code: "KW", emoji: "🇰🇼", en: "Kuwait", zh: "科威特", region: "Asia / 亚洲" },
+  { code: "LA", emoji: "🇱🇦", en: "Laos", zh: "老挝", region: "Asia / 亚洲" },
+  { code: "LB", emoji: "🇱🇧", en: "Lebanon", zh: "黎巴嫩", region: "Asia / 亚洲" },
+  { code: "MO", emoji: "🇲🇴", en: "Macau", zh: "中国澳门", region: "Asia / 亚洲" },
+  { code: "MY", emoji: "🇲🇾", en: "Malaysia", zh: "马来西亚", region: "Asia / 亚洲" },
+  { code: "MV", emoji: "🇲🇻", en: "Maldives", zh: "马尔代夫", region: "Asia / 亚洲" },
+  { code: "MN", emoji: "🇲🇳", en: "Mongolia", zh: "蒙古", region: "Asia / 亚洲" },
+  { code: "MM", emoji: "🇲🇲", en: "Myanmar", zh: "缅甸", region: "Asia / 亚洲" },
+  { code: "NP", emoji: "🇳🇵", en: "Nepal", zh: "尼泊尔", region: "Asia / 亚洲" },
+  { code: "KP", emoji: "🇰🇵", en: "North Korea", zh: "朝鲜", region: "Asia / 亚洲" },
+  { code: "OM", emoji: "🇴🇲", en: "Oman", zh: "阿曼", region: "Asia / 亚洲" },
+  { code: "PK", emoji: "🇵🇰", en: "Pakistan", zh: "巴基斯坦", region: "Asia / 亚洲" },
+  { code: "PH", emoji: "🇵🇭", en: "Philippines", zh: "菲律宾", region: "Asia / 亚洲" },
+  { code: "QA", emoji: "🇶🇦", en: "Qatar", zh: "卡塔尔", region: "Asia / 亚洲" },
+  { code: "SA", emoji: "🇸🇦", en: "Saudi Arabia", zh: "沙特阿拉伯", region: "Asia / 亚洲" },
+  { code: "SG", emoji: "🇸🇬", en: "Singapore", zh: "新加坡", region: "Asia / 亚洲" },
+  { code: "KR", emoji: "🇰🇷", en: "South Korea", zh: "韩国", region: "Asia / 亚洲" },
+  { code: "LK", emoji: "🇱🇰", en: "Sri Lanka", zh: "斯里兰卡", region: "Asia / 亚洲" },
+  { code: "SY", emoji: "🇸🇾", en: "Syria", zh: "叙利亚", region: "Asia / 亚洲" },
+  { code: "TW", emoji: "🇹🇼", en: "Taiwan", zh: "中国台湾", region: "Asia / 亚洲" },
+  { code: "TH", emoji: "🇹🇭", en: "Thailand", zh: "泰国", region: "Asia / 亚洲" },
+  { code: "AE", emoji: "🇦🇪", en: "United Arab Emirates", zh: "阿联酋", region: "Asia / 亚洲" },
+  { code: "VN", emoji: "🇻🇳", en: "Vietnam", zh: "越南", region: "Asia / 亚洲" },
+  { code: "YE", emoji: "🇾🇪", en: "Yemen", zh: "也门", region: "Asia / 亚洲" },
+
+  // Americas / 美洲
+  { code: "AR", emoji: "🇦🇷", en: "Argentina", zh: "阿根廷", region: "Americas / 美洲" },
+  { code: "BS", emoji: "🇧🇸", en: "Bahamas", zh: "巴哈马", region: "Americas / 美洲" },
+  { code: "BB", emoji: "🇧🇧", en: "Barbados", zh: "巴巴多斯", region: "Americas / 美洲" },
+  { code: "BZ", emoji: "🇧🇿", en: "Belize", zh: "伯利兹", region: "Americas / 美洲" },
+  { code: "BO", emoji: "🇧🇴", en: "Bolivia", zh: "玻利维亚", region: "Americas / 美洲" },
+  { code: "BR", emoji: "🇧🇷", en: "Brazil", zh: "巴西", region: "Americas / 美洲" },
+  { code: "CA", emoji: "🇨🇦", en: "Canada", zh: "加拿大", region: "Americas / 美洲" },
+  { code: "CL", emoji: "🇨🇱", en: "Chile", zh: "智利", region: "Americas / 美洲" },
+  { code: "CO", emoji: "🇨🇴", en: "Colombia", zh: "哥伦比亚", region: "Americas / 美洲" },
+  { code: "CR", emoji: "🇨🇷", en: "Costa Rica", zh: "哥斯达黎加", region: "Americas / 美洲" },
+  { code: "CU", emoji: "🇨🇺", en: "Cuba", zh: "古巴", region: "Americas / 美洲" },
+  { code: "DO", emoji: "🇩🇴", en: "Dominican Republic", zh: "多米尼加", region: "Americas / 美洲" },
+  { code: "EC", emoji: "🇪🇨", en: "Ecuador", zh: "厄瓜多尔", region: "Americas / 美洲" },
+  { code: "SV", emoji: "🇸🇻", en: "El Salvador", zh: "萨尔瓦多", region: "Americas / 美洲" },
+  { code: "GT", emoji: "🇬🇹", en: "Guatemala", zh: "危地马拉", region: "Americas / 美洲" },
+  { code: "HN", emoji: "🇭🇳", en: "Honduras", zh: "洪都拉斯", region: "Americas / 美洲" },
+  { code: "JM", emoji: "🇯🇲", en: "Jamaica", zh: "牙买加", region: "Americas / 美洲" },
+  { code: "MX", emoji: "🇲🇽", en: "Mexico", zh: "墨西哥", region: "Americas / 美洲" },
+  { code: "NI", emoji: "🇳🇮", en: "Nicaragua", zh: "尼加拉瓜", region: "Americas / 美洲" },
+  { code: "PA", emoji: "🇵🇦", en: "Panama", zh: "巴拿马", region: "Americas / 美洲" },
+  { code: "PY", emoji: "🇵🇾", en: "Paraguay", zh: "巴拉圭", region: "Americas / 美洲" },
+  { code: "PE", emoji: "🇵🇪", en: "Peru", zh: "秘鲁", region: "Americas / 美洲" },
+  { code: "PR", emoji: "🇵🇷", en: "Puerto Rico", zh: "波多黎各", region: "Americas / 美洲" },
+  { code: "TT", emoji: "🇹🇹", en: "Trinidad and Tobago", zh: "特立尼达和多巴哥", region: "Americas / 美洲" },
+  { code: "US", emoji: "🇺🇸", en: "United States", zh: "美国", region: "Americas / 美洲" },
+  { code: "UY", emoji: "🇺🇾", en: "Uruguay", zh: "乌拉圭", region: "Americas / 美洲" },
+  { code: "VE", emoji: "🇻🇪", en: "Venezuela", zh: "委内瑞拉", region: "Americas / 美洲" },
+
+  // Oceania / 大洋洲
+  { code: "AU", emoji: "🇦🇺", en: "Australia", zh: "澳大利亚", region: "Oceania / 大洋洲" },
+  { code: "FJ", emoji: "🇫🇯", en: "Fiji", zh: "斐济", region: "Oceania / 大洋洲" },
+  { code: "KI", emoji: "🇰🇮", en: "Kiribati", zh: "基里巴斯", region: "Oceania / 大洋洲" },
+  { code: "MH", emoji: "🇲🇭", en: "Marshall Islands", zh: "马绍尔群岛", region: "Oceania / 大洋洲" },
+  { code: "FM", emoji: "🇫🇲", en: "Micronesia", zh: "密克罗尼西亚", region: "Oceania / 大洋洲" },
+  { code: "NR", emoji: "🇳🇷", en: "Nauru", zh: "瑙鲁", region: "Oceania / 大洋洲" },
+  { code: "NZ", emoji: "🇳🇿", en: "New Zealand", zh: "新西兰", region: "Oceania / 大洋洲" },
+  { code: "PW", emoji: "🇵🇼", en: "Palau", zh: "帕劳", region: "Oceania / 大洋洲" },
+  { code: "PG", emoji: "🇵🇬", en: "Papua New Guinea", zh: "巴布亚新几内亚", region: "Oceania / 大洋洲" },
+  { code: "WS", emoji: "🇼🇸", en: "Samoa", zh: "萨摩亚", region: "Oceania / 大洋洲" },
+  { code: "SB", emoji: "🇸🇧", en: "Solomon Islands", zh: "所罗门群岛", region: "Oceania / 大洋洲" },
+  { code: "TO", emoji: "🇹🇴", en: "Tonga", zh: "汤加", region: "Oceania / 大洋洲" },
+  { code: "TV", emoji: "🇹🇻", en: "Tuvalu", zh: "图瓦卢", region: "Oceania / 大洋洲" },
+  { code: "VU", emoji: "🇻🇺", en: "Vanuatu", zh: "瓦努阿图", region: "Oceania / 大洋洲" },
+
+  // Africa / 非洲
+  { code: "DZ", emoji: "🇩🇿", en: "Algeria", zh: "阿尔及利亚", region: "Africa / 非洲" },
+  { code: "EG", emoji: "🇪🇬", en: "Egypt", zh: "埃及", region: "Africa / 非洲" },
+  { code: "ET", emoji: "🇪🇹", en: "Ethiopia", zh: "埃塞俄比亚", region: "Africa / 非洲" },
+  { code: "GH", emoji: "🇬🇭", en: "Ghana", zh: "加纳", region: "Africa / 非洲" },
+  { code: "KE", emoji: "🇰🇪", en: "Kenya", zh: "肯尼亚", region: "Africa / 非洲" },
+  { code: "MA", emoji: "🇲🇦", en: "Morocco", zh: "摩洛哥", region: "Africa / 非洲" },
+  { code: "NG", emoji: "🇳🇬", en: "Nigeria", zh: "尼日利亚", region: "Africa / 非洲" },
+  { code: "ZA", emoji: "🇿🇦", en: "South Africa", zh: "南非", region: "Africa / 非洲" },
+  { code: "TN", emoji: "🇹🇳", en: "Tunisia", zh: "突尼斯", region: "Africa / 非洲" },
+
+  // Other / 其他
+  { code: "OTHER", emoji: "🌍", en: "Other", zh: "其他", region: "Other / 其他" },
 ];
 
 const starterPosts = [
@@ -797,23 +896,28 @@ export default function NotJustMeWebsite() {
                   </select>
                 </div>
 
-                <div className="rounded-2xl border border-gray-200 p-3">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    发生国家
-                  </label>
-                  <select
-                    value={form.country}
-                    onChange={(e) => updateForm("country", e.target.value)}
-                    className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
-                  >
-                    <option value="">请选择</option>
-                    {countryOptions.map((option) => (
-                      <option key={option.code} value={option.code}>
-                        {option.emoji} {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+            <select
+  value={form.country}
+  onChange={(e) => updateForm("country", e.target.value)}
+  className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
+>
+  <option value="">请选择 / Please select</option>
+  {Object.entries(
+    countryOptions.reduce((acc, item) => {
+      if (!acc[item.region]) acc[item.region] = [];
+      acc[item.region].push(item);
+      return acc;
+    }, {})
+  ).map(([region, countries]) => (
+    <optgroup key={region} label={region}>
+      {countries.map((option) => (
+        <option key={option.code} value={option.code}>
+          {option.emoji} {option.en} / {option.zh}
+        </option>
+      ))}
+    </optgroup>
+  ))}
+</select>
 
                 <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
