@@ -40,7 +40,7 @@ const starterPosts = [
     date: "2026-03-29",
     location: "奥斯陆机场 OSL",
     summary:
-      "我排队到柜台时，前面几位欧洲面孔旅客都很顺利，轮到我后，对方语气明显变得敷衍，还反复质疑我的票是否有效。最后虽然办好了，但整个过程让我很不舒服。",
+      "我排队到柜台时，前面几位欧洲面孔旅客都很顺利，轮到我后，对方语气明显变得敷衍，还反复质疑我的票是否有效。最后虽然办好了，但整个过程让我很不舒服。我大声告诉她我是商务舱的机票，但是她用手指着经济舱通道让我去排队，同行的挪威人也表示惊讶，但是我再次严肃的声明，business class，她才不情不愿的放我进去，就好像我占了便宜一样",
     details:
       "我希望写下来不是为了单纯发泄，而是让后来的人知道：如果你也遇到类似情况，可以记录下时间、地点、岗位身份和说话方式。这些信息会帮助别人判断这是个例，还是某些场景中经常出现的问题。",
     reactions: {
@@ -62,13 +62,13 @@ const starterPosts = [
   },
   {
     id: 2,
-    title: "在餐厅被默认安排到最角落的位置",
+    title: "二刷柏林三顾冒菜，被没有服务意识的员工恶心到了",
     authorIdentity: "留学生",
     otherPartyIdentity: "餐厅工作人员",
     date: "2026-02-14",
-    location: "卑尔根市中心",
+    location: "柏林三顾冒菜",
     summary:
-      "店里明明有不少空位，但店员看了我一眼后，把我安排到靠近后厨和通道的位置。后面来的两组白人客人却被安排在窗边。",
+      "今天赶着11.30开门营业后进店的，大部分都是华人朋友，店员一路上保持极简的交流。买单时要了一碗米饭两欧，但是取餐的时候，我说为什么我的米饭没有，她却反问我你点了每天，旁边盛饭的师傅也是盛气凌人，说这个是收费的，那个女收银员就把我放到一边，说等一下，等结了两个人的帐之后，才慢慢的把我结账的单子打出来，说付了31欧，一碗米饭两欧，才把米饭给了我，全程没有一句道歉，像是我欠了他们一样，也不知道是开门忙着赚钱，今天的冒菜都没有煮太熟，就上了，经典川味也更本就没什么味道，还让我选辣度，更本一点味道都没有。",
     details:
       "这件事单看似乎很小，但那种‘你被自动放到次等位置’的感觉很真实。网站上如果能把身份、具体地点、日期都记录清楚，就能帮助大家看见这种难以量化的不适。",
     reactions: {
@@ -511,7 +511,7 @@ export default function NotJustMeWebsite() {
                   <input
                     value={form.location}
                     onChange={(e) => updateForm("location", e.target.value)}
-                    placeholder="例如：奥斯陆机场 / 某餐厅 / 某博物馆"
+                    placeholder="例如：伦敦希思罗机场 / 巴黎某餐厅 / 柏林某博物馆"
                     className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
                   />
                 </div>
@@ -577,7 +577,7 @@ export default function NotJustMeWebsite() {
               <h2 className="text-2xl font-bold text-gray-900">联系与反馈</h2>
               <div className="mt-4 rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
                 <p>如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：</p>
-                <p className="mt-2 font-semibold text-purple-700">contact@notjustme.site</p>
+                <p className="mt-2 font-semibold text-purple-700">contact.notjust.me@gmail.com</p>
               </div>
             </div>
           </div>
