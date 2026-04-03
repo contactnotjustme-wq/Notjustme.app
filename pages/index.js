@@ -570,61 +570,67 @@ export default function NotJustMeWebsite() {
   };
 
   const submitPost = async () => {
-    const requiredFields = [
-      "title",
-      "authorIdentity",
-      "otherPartyIdentity",
-      "date",
-      "location",
-      "country",
-      "summary",
-      "details",
-    ];
+  const requiredFields = [
+    "title",
+    "authorIdentity",
+    "otherPartyIdentity",
+    "date",
+    "location",
+    "country",
+    "summary",
+    "details",
+  ];
 
-    const missing = requiredFields.filter(
-      (field) => !String(form[field]).trim()
-    );
+  const missing = requiredFields.filter(
+    (field) => !String(form[field] || "").trim()
+  );
 
-    if (missing.length > 0) {
-      alert(
-        "请把标题、身份、国家、日期、地点、经过概述和补充细节都填写完整。这样内容才真正能帮助别人。"
-      );
-      return;
-    }
+  if (missing.length > 0) {
+    alert("请把标题、身份、国家、日期、地点、经过概述和补充细节都填写完整。");
+    return;
+  }
 
-    const { error } = await supabase.from("posts").insert([
-      {
-        title: form.title,
-        summary: form.summary.slice(0, 1000),
-        details: form.details.slice(0, 1000),
-        author_identity: form.authorIdentity,
-        other_party_identity: form.otherPartyIdentity,
-        location: form.location,
-        country: form.country,
-        date: form.date,
-      },
-    ]);
-
-    if (error) {
-      console.error("Supabase insert error:", error);
-      alert("发布失败，请检查数据库字段或权限设置。");
-      return;
-    }
-
-    await fetchPosts();
-
-    setForm({
-      title: "",
-      authorIdentity: "",
-      otherPartyIdentity: "",
-      date: "",
-      location: "",
-      country: "",
-      summary: "",
-      details: "",
-    });
+  const payload = {
+    title: form.title.trim(),
+    summary: form.summary.slice(0, 1000).trim(),
+    details: form.details.slice(0, 1000).trim(),
+    author_identity: form.authorIdentity,
+    other_party_identity: form.otherPartyIdentity,
+    location: form.location.trim(),
+    country: form.country,
+    date: form.date,
   };
 
+  console.log("Submitting payload:", payload);
+
+  const { data, error } = await supabase
+    .from("posts")
+    .insert([payload])
+    .select();
+
+  if (error) {
+    console.error("Supabase insert error:", error);
+    alert(`发布失败：${error.message}`);
+    return;
+  }
+
+  console.log("Insert success:", data);
+
+  await fetchPosts();
+
+  setForm({
+    title: "",
+    authorIdentity: "",
+    otherPartyIdentity: "",
+    date: "",
+    location: "",
+    country: "",
+    summary: "",
+    details: "",
+  });
+
+  alert("发布成功");
+};
   const reactToPost = (postId, reactionKey) => {
     setPosts((prev) =>
       prev.map((post) =>
