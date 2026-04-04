@@ -186,8 +186,6 @@ const countryOptions = [
   { code: "OTHER", emoji: "🌍", en: "Other", zh: "其他", region: "Other / 其他" },
 ];
 
-const [posts, setPosts] = useState([]);
-
 function getCountryMeta(countryCode) {
   return (
     countryOptions.find((item) => item.code === countryCode) ||
@@ -356,11 +354,7 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
         </div>
 
         <div className="mt-5 space-y-4">
-          <ExpandableText
-            text={post.summary}
-            preview={100}
-            maxLength={1000}
-          />
+          <ExpandableText text={post.summary} preview={100} maxLength={1000} />
           <div className="rounded-2xl border border-purple-100 bg-purple-50 p-4">
             <ExpandableText
               text={post.details}
