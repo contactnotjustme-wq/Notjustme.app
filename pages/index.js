@@ -365,61 +365,64 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
           </div>
         </div>
 
-        <div className="mt-6 border-t border-gray-100 pt-4">
-          <div className="flex flex-wrap items-center gap-3">
-            <ActionButton active={false} onClick={() => onLike(post.id)}>
-              👍 赞同 {post.likes}
-            </ActionButton>
-            <ActionButton
-              active={false}
-              onClick={() => setShowReactions(!showReactions)}
-            >
-              💬 评论 {post.comments.length}
-            </ActionButton>
-            <ActionButton active={false} onClick={() => onSave(post.id)}>
-              ★ 收藏 {post.saves}
-            </ActionButton>
-            <ActionButton active={false} onClick={() => onShare(post.id)}>
-              ↗ 分享 {post.shares}
-            </ActionButton>
-            <button type="button" className="px-2 py-2 text-xl text-gray-400">
-              …
-            </button>
-          </div>
+       <div className="mt-6 border-t border-gray-100 pt-4">
+  <div className="flex flex-wrap items-center gap-3">
+    <ActionButton active={false} onClick={() => onLike(post.id)}>
+      👍 赞同 {post.likes}
+    </ActionButton>
 
-              <div className="mt-4">
-                <textarea
-                  value={commentInput}
-                  onChange={(e) =>
-                    setCommentInput(e.target.value.slice(0, 1000))
-                  }
-                  maxLength={1000}
-                  placeholder="写下你的看法、补充经历，或者给出建设性建议。最多 1000 字。"
-                  className="min-h-[96px] w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400"
-                />
-                <div className="mt-2 flex items-center justify-between text-xs text-gray-400">
-                  <span>建议评论尽量具体、克制、有信息量</span>
-                  <span>{commentInput.length}/1000</span>
-                </div>
-                <div className="mt-3 flex justify-end">
-                  <button
-                    type="button"
-                    onClick={submitComment}
-                    className="rounded-2xl bg-purple-600 px-5 py-2 text-sm font-medium text-white hover:bg-purple-700"
-                  >
-                    发布评论
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+    <ActionButton active={false} onClick={() => onSave(post.id)}>
+      ★ 收藏 {post.saves}
+    </ActionButton>
 
-          <CommentList comments={post.comments} />
-        </div>
+    <ActionButton active={false} onClick={() => onShare(post.id)}>
+      ↗ 分享 {post.shares}
+    </ActionButton>
+  </div>
+
+  <div className="mt-4 flex flex-wrap gap-2">
+    {reactionOptions.map((reaction) => (
+      <button
+        key={reaction.key}
+        type="button"
+        onClick={() => onReact(post.id, reaction.key)}
+        className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+      >
+        {reaction.label} ({post.reactions?.[reaction.key] || 0})
+      </button>
+    ))}
+  </div>
+
+  <div className="mt-4">
+    <div className="mb-2 text-sm font-medium text-gray-700">
+      💬 评论区
+    </div>
+    <div className="space-y-3">
+      <textarea
+        value={commentInput}
+        onChange={(e) => setCommentInput(e.target.value.slice(0, 1000))}
+        maxLength={1000}
+        placeholder="写下你的看法、补充经历，或者给出建设性建议。最多 1000 字。"
+        className="min-h-[96px] w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400"
+      />
+      <div className="flex items-center justify-between text-xs text-gray-400">
+        <span>建议评论尽量具体、克制、有信息量</span>
+        <span>{commentInput.length}/1000</span>
+      </div>
+      <div className="flex justify-end">
+        <button
+          type="button"
+          onClick={submitComment}
+          className="rounded-2xl bg-purple-600 px-5 py-2 text-sm font-medium text-white hover:bg-purple-700"
+        >
+          发布评论
+        </button>
       </div>
     </div>
-  );
-}
+  </div>
+
+  <CommentList comments={post.comments} />
+</div>
 
 export default function NotJustMeWebsite() {
   const [posts, setPosts] = useState([]);
