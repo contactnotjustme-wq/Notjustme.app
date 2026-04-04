@@ -387,24 +387,6 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
             </button>
           </div>
 
-          {showReactions && (
-            <div className="mt-4 rounded-2xl bg-gray-50 p-4">
-              <div className="mb-3 text-sm font-medium text-gray-700">
-                更细的互动反馈
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {reactionOptions.map((reaction) => (
-                  <button
-                    key={reaction.key}
-                    type="button"
-                    onClick={() => onReact(post.id, reaction.key)}
-                    className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    {reaction.label} ({post.reactions[reaction.key] || 0})
-                  </button>
-                ))}
-              </div>
-
               <div className="mt-4">
                 <textarea
                   value={commentInput}
