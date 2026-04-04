@@ -595,21 +595,39 @@ export default function NotJustMeWebsite() {
     alert("发布成功");
   };
 
-  const reactToPost = (postId, reactionKey) => {
-    setPosts((prev) =>
-      prev.map((post) =>
-        post.id === postId
-          ? {
-              ...post,
-              reactions: {
-                ...post.reactions,
-                [reactionKey]: (post.reactions[reactionKey] || 0) + 1,
-              },
-            }
-          : post
-      )
-    );
+  const reactToPost = async (postId, reactionKey) => {
+  const targetPost = posts.find((post) => post.id === postId);
+  if (!targetPost) return;
+
+  const newReactions = {
+    ...(targetPost.reactions || {
+      same: 0,
+      shocked: 0,
+      support: 0,
+      angry: 0,
+      different: 0,
+      helpful: 0,
+    }),
+    [reactionKey]: ((targetPost.reactions || {})[reactionKey] || 0) + 1,
   };
+
+  const { error } = await supabase
+    .from("posts")
+    .update({ reactions: newReactions })
+    .eq("id", postId);
+
+  if (error) {
+    console.error("Failed to update reactions:", error);
+    alert(`反馈失败：${error.message}`);
+    return;
+  }
+
+  setPosts((prev) =>
+    prev.map((post) =>
+      post.id === postId ? { ...post, reactions: newReactions } : post
+    )
+  );
+};
 
   const addComment = async (postId, text) => {
   const safeText = text.slice(0, 1000).trim();
