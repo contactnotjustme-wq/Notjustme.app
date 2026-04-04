@@ -920,14 +920,12 @@ export default function NotJustMeWebsite() {
                   <label className="mb-2 block text-sm font-medium text-gray-700">
                     📝 事情经过概述
                   </label>
-                  <p className="mb-2 text-xs leading-6 text-gray-500">
-                    请按时间顺序简要说明发生了什么，包括当时的情境、对话或具体行为，让第一次看到的人也能理解整个过程。
-                  </p>
+               
                   <textarea
                     value={form.summary}
                     onChange={(e) => updateForm("summary", e.target.value.slice(0, 1000))}
                     maxLength={1000}
-                    placeholder="请写清当时发生了什么。"
+                    placeholder="请按时间顺序简要说明发生了什么，包括当时的情境、对话或具体行为，让第一次看到的人也能理解整个过程。"
                     className="min-h-[120px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
                   <div className="mt-2 text-right text-xs text-gray-400">
@@ -939,14 +937,12 @@ export default function NotJustMeWebsite() {
                   <label className="mb-2 block text-sm font-medium text-gray-700">
                     💭 补充细节与感受
                   </label>
-                  <p className="mb-2 text-xs leading-6 text-gray-500">
-                    可以补充当时的环境、他人与自己的反应，以及哪些细节让你产生不适，这些信息能帮助他人判断是否具有共性。
-                  </p>
+              
                   <textarea
                     value={form.details}
                     onChange={(e) => updateForm("details", e.target.value.slice(0, 1000))}
                     maxLength={1000}
-                    placeholder="补充上下文、感受和细节。"
+                    placeholder="可以补充当时的环境、他人与自己的反应，以及哪些细节让你产生不适，这些信息能帮助他人判断是否具有共性。"
                     className="min-h-[140px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
                   <div className="mt-2 text-right text-xs text-gray-400">
