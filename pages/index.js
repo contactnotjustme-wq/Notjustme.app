@@ -446,7 +446,7 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
 }
 
 export default function NotJustMeWebsite() {
-  const [posts, setPosts] = useState(starterPosts);
+  const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
   const [form, setForm] = useState({
     title: "",
@@ -545,67 +545,62 @@ export default function NotJustMeWebsite() {
   };
 
   const submitPost = async () => {
-  const requiredFields = [
-    "title",
-    "authorIdentity",
-    "otherPartyIdentity",
-    "date",
-    "location",
-    "country",
-    "summary",
-    "details",
-  ];
+    const requiredFields = [
+      "title",
+      "authorIdentity",
+      "otherPartyIdentity",
+      "date",
+      "location",
+      "country",
+      "summary",
+      "details",
+    ];
 
-  const missing = requiredFields.filter(
-    (field) => !String(form[field] || "").trim()
-  );
+    const missing = requiredFields.filter(
+      (field) => !String(form[field] || "").trim()
+    );
 
-  if (missing.length > 0) {
-    alert("请把标题、身份、国家、日期、地点、经过概述和补充细节都填写完整。");
-    return;
-  }
+    if (missing.length > 0) {
+      alert("请把标题、身份、国家、日期、地点、经过概述和补充细节都填写完整。");
+      return;
+    }
 
-  const payload = {
-    title: form.title.trim(),
-    summary: form.summary.slice(0, 1000).trim(),
-    details: form.details.slice(0, 1000).trim(),
-    author_identity: form.authorIdentity,
-    other_party_identity: form.otherPartyIdentity,
-    location: form.location.trim(),
-    country: form.country,
-    date: form.date,
+    const payload = {
+      title: form.title.trim(),
+      summary: form.summary.slice(0, 1000).trim(),
+      details: form.details.slice(0, 1000).trim(),
+      author_identity: form.authorIdentity,
+      other_party_identity: form.otherPartyIdentity,
+      location: form.location.trim(),
+      country: form.country,
+      date: form.date,
+    };
+
+    const { data, error } = await supabase.from("posts").insert([payload]).select();
+
+    if (error) {
+      console.error("Supabase insert error:", error);
+      alert(`发布失败：${error.message}`);
+      return;
+    }
+
+    console.log("Insert success:", data);
+    await fetchPosts();
+
+    setForm({
+      title: "",
+      authorIdentity: "",
+      otherPartyIdentity: "",
+      date: "",
+      location: "",
+      country: "",
+      summary: "",
+      details: "",
+    });
+
+    alert("发布成功");
   };
 
-  console.log("Submitting payload:", payload);
-
-  const { data, error } = await supabase
-    .from("posts")
-    .insert([payload])
-    .select();
-
-  if (error) {
-    console.error("Supabase insert error:", error);
-    alert(`发布失败：${error.message}`);
-    return;
-  }
-
-  console.log("Insert success:", data);
-
-  await fetchPosts();
-
-  setForm({
-    title: "",
-    authorIdentity: "",
-    otherPartyIdentity: "",
-    date: "",
-    location: "",
-    country: "",
-    summary: "",
-    details: "",
-  });
-
-  alert("发布成功");
-};
   const reactToPost = (postId, reactionKey) => {
     setPosts((prev) =>
       prev.map((post) =>
@@ -666,10 +661,7 @@ export default function NotJustMeWebsite() {
           text: shareText,
           url: typeof window !== "undefined" ? window.location.href : "",
         });
-      } else if (
-        typeof navigator !== "undefined" &&
-        navigator.clipboard
-      ) {
+      } else if (typeof navigator !== "undefined" && navigator.clipboard) {
         await navigator.clipboard.writeText(shareText);
         alert("内容已复制，可以分享到其他平台。");
       } else {
@@ -689,16 +681,18 @@ export default function NotJustMeWebsite() {
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-2 text-sm font-medium text-purple-700">
                 让更多人愿意写下真实经历
               </div>
-             <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
-  <button
-    onClick={() => window.location.reload()}
-    className="flex items-center gap-3 hover:opacity-80 transition"
-  >
-    <span className="text-gray-900">Not Just Me</span>
-    <span className="text-purple-600">/</span>
-    <span className="text-purple-600">原来不止我</span>
-  </button>
-</h1>
+
+              <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
+                <button
+                  onClick={() => window.location.reload()}
+                  className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition"
+                >
+                  <span className="text-gray-900">Not Just Me</span>
+                  <span className="text-purple-600">/</span>
+                  <span className="text-purple-600">原来不止我</span>
+                </button>
+              </h1>
+
               <p className="mt-5 max-w-3xl whitespace-pre-line text-lg leading-8 text-gray-600">
                 欧洲不适/歧视/差别对待经历收录平台
                 {"\n"}
@@ -707,34 +701,67 @@ export default function NotJustMeWebsite() {
             </div>
 
             <div className="rounded-[28px] border border-purple-100 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900">发布前建议</h3>
+              <h3 className="text-lg font-bold text-gray-900">首页说明</h3>
               <p className="mt-2 text-sm text-gray-600">
-                写得越具体，越能帮助后来的人。
+                先看看别人已经分享了什么，也欢迎你写下自己的经历。
               </p>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-gray-600">
-                <li>请尽量写清你的身份、对方身份、国家、日期、地点和事情经过。</li>
-                <li>正文建议控制在 1000 字以内，但尽量把关键信息写完整。</li>
-                <li>避免公开他人的私人信息，保护自己也保护他人。</li>
-                <li>欢迎表达感受，但更鼓励提供能帮助别人判断情境的事实细节。</li>
-              </ul>
             </div>
           </div>
         </section>
 
-        <div className="mt-8 grid gap-8 xl:grid-cols-[0.95fr_1.05fr]">
-          <div className="space-y-8">
+        <div className="mt-8 grid gap-8 xl:grid-cols-[0.72fr_0.28fr]">
+          <div className="space-y-6">
+            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">社区内容</h2>
+                  <p className="mt-1 text-sm text-gray-600">
+                    帖子会根据点赞、评论、分享、收藏和互动热度动态排序。
+                  </p>
+                </div>
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="搜索标题、地点、身份、国家…"
+                  className="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400 md:max-w-xs"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              {filteredPosts.length > 0 ? (
+                filteredPosts.map((post) => (
+                  <PostCard
+                    key={post.id}
+                    post={post}
+                    onReact={reactToPost}
+                    onLike={(id) => incrementField(id, "likes")}
+                    onSave={(id) => incrementField(id, "saves")}
+                    onShare={sharePost}
+                    onAddComment={addComment}
+                  />
+                ))
+              ) : (
+                <div className="rounded-[28px] border border-gray-200 bg-white p-10 text-center text-gray-600 shadow-sm">
+                  还没有内容，成为第一个发布的人吧。
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-6">
             <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
               <h2 className="text-2xl font-bold text-gray-900">发布你的经历</h2>
               <p className="mt-1 text-sm text-gray-600">
-                每一条内容都应尽量完整，帮助更多人理解真实场景。
+                把经历写得更完整，能帮助更多人理解真实场景。
               </p>
 
-              <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="mt-6 grid gap-4">
                 <input
                   value={form.title}
                   onChange={(e) => updateForm("title", e.target.value)}
                   placeholder="帖子标题，例如：在某机场被区别对待"
-                  className="rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400 md:col-span-2"
+                  className="rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400"
                 />
 
                 <div className="rounded-2xl border border-gray-200 p-3">
@@ -743,9 +770,7 @@ export default function NotJustMeWebsite() {
                   </label>
                   <select
                     value={form.authorIdentity}
-                    onChange={(e) =>
-                      updateForm("authorIdentity", e.target.value)
-                    }
+                    onChange={(e) => updateForm("authorIdentity", e.target.value)}
                     className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
                   >
                     <option value="">请选择</option>
@@ -763,9 +788,7 @@ export default function NotJustMeWebsite() {
                   </label>
                   <select
                     value={form.otherPartyIdentity}
-                    onChange={(e) =>
-                      updateForm("otherPartyIdentity", e.target.value)
-                    }
+                    onChange={(e) => updateForm("otherPartyIdentity", e.target.value)}
                     className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
                   >
                     <option value="">请选择</option>
@@ -777,28 +800,33 @@ export default function NotJustMeWebsite() {
                   </select>
                 </div>
 
-            <select
-  value={form.country}
-  onChange={(e) => updateForm("country", e.target.value)}
-  className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
->
-  <option value="">请选择 / Please select</option>
-  {Object.entries(
-    countryOptions.reduce((acc, item) => {
-      if (!acc[item.region]) acc[item.region] = [];
-      acc[item.region].push(item);
-      return acc;
-    }, {})
-  ).map(([region, countries]) => (
-    <optgroup key={region} label={region}>
-      {countries.map((option) => (
-        <option key={option.code} value={option.code}>
-          {option.emoji} {option.en} / {option.zh}
-        </option>
-      ))}
-    </optgroup>
-  ))}
-</select>
+                <div className="rounded-2xl border border-gray-200 p-3">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    发生国家
+                  </label>
+                  <select
+                    value={form.country}
+                    onChange={(e) => updateForm("country", e.target.value)}
+                    className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none"
+                  >
+                    <option value="">请选择 / Please select</option>
+                    {Object.entries(
+                      countryOptions.reduce((acc, item) => {
+                        if (!acc[item.region]) acc[item.region] = [];
+                        acc[item.region].push(item);
+                        return acc;
+                      }, {})
+                    ).map(([region, countries]) => (
+                      <optgroup key={region} label={region}>
+                        {countries.map((option) => (
+                          <option key={option.code} value={option.code}>
+                            {option.emoji} {option.en} / {option.zh}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))}
+                  </select>
+                </div>
 
                 <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -812,7 +840,7 @@ export default function NotJustMeWebsite() {
                   />
                 </div>
 
-                <div className="rounded-2xl border border-gray-200 p-3 md:col-span-2">
+                <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
                     发生地点
                   </label>
@@ -824,17 +852,15 @@ export default function NotJustMeWebsite() {
                   />
                 </div>
 
-                <div className="rounded-2xl border border-gray-200 p-3 md:col-span-2">
+                <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
                     事情经过概述
                   </label>
                   <textarea
                     value={form.summary}
-                    onChange={(e) =>
-                      updateForm("summary", e.target.value.slice(0, 1000))
-                    }
+                    onChange={(e) => updateForm("summary", e.target.value.slice(0, 1000))}
                     maxLength={1000}
-                    placeholder="请写清当时发生了什么，最好让第一次看到的人也能读懂。最多 1000 字。"
+                    placeholder="请写清当时发生了什么。"
                     className="min-h-[120px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
                   <div className="mt-2 text-right text-xs text-gray-400">
@@ -842,17 +868,15 @@ export default function NotJustMeWebsite() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-gray-200 p-3 md:col-span-2">
+                <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
                     补充细节与感受
                   </label>
                   <textarea
                     value={form.details}
-                    onChange={(e) =>
-                      updateForm("details", e.target.value.slice(0, 1000))
-                    }
+                    onChange={(e) => updateForm("details", e.target.value.slice(0, 1000))}
                     maxLength={1000}
-                    placeholder="你可以补充上下文、对比、自己的感受，以及这些细节为什么值得被记录。最多 1000 字。"
+                    placeholder="补充上下文、感受和细节。"
                     className="min-h-[140px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
                   <div className="mt-2 text-right text-xs text-gray-400">
@@ -891,77 +915,6 @@ export default function NotJustMeWebsite() {
             </div>
 
             <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900">关于这个网站</h2>
-              <p className="mt-4 text-sm leading-7 text-gray-600">
-                这个网站的初衷，是让那些曾经让人感到委屈、被轻视、被区别对待、被误解的瞬间，不再只停留在心里。
-                你可以分享在机场、餐厅、酒店、景点、商店、学校、职场或其他公共场所中让你感到不舒服的经历。
-              </p>
-            </div>
-
-            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900">联系与反馈</h2>
-              <div className="mt-4 rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
-                <p>
-                  如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：
-                </p>
-                <p className="mt-2 font-semibold text-purple-700">
-                  contact.notjust.me@gmail.com
-                </p>
-              </div>
-            </div>
-          </div>
-<div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
-  <h2 className="text-2xl font-bold text-gray-900">免责声明</h2>
-
-  <div className="mt-4 rounded-2xl border border-gray-100 bg-gray-50 p-4 text-sm leading-7 text-gray-600">
-    <p className="font-semibold text-gray-800">免责声明 / Disclaimer</p>
-
-    <p className="mt-3">
-      本网站内容均由用户自行发布，仅代表发布者个人观点和经历。本平台不对内容的真实性、完整性或准确性作任何保证，也不对由此产生的任何后果承担责任。
-    </p>
-
-    <p className="mt-2">
-      我们鼓励用户尽可能提供真实、具体、有信息价值的内容，但无法对每一条信息进行审核或验证。请读者在浏览和参考时自行判断。
-    </p>
-
-    <p className="mt-2">
-      所有用户在使用本平台时，应遵守基本的法律法规和社区规范，不得发布涉及诽谤、歧视、人身攻击或侵犯他人隐私的内容。
-    </p>
-
-    <div className="mt-4 border-t border-gray-200 pt-4">
-      <p>
-        All content on this platform is generated by users and reflects their personal experiences and opinions only. We do not guarantee the accuracy, completeness, or reliability of any content.
-      </p>
-
-      <p className="mt-2">
-        The platform does not verify every submission. Readers should use their own judgment when interpreting the information.
-      </p>
-
-      <p className="mt-2">
-        Users must comply with laws and community guidelines and must not post defamatory, abusive, discriminatory, or privacy-violating content.
-      </p>
-    </div>
-  </div>
-</div>
-          <div className="space-y-6">
-            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
-              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">社区内容</h2>
-                  <p className="mt-1 text-sm text-gray-600">
-                    帖子会根据点赞、评论、分享、收藏和互动热度动态排序。
-                  </p>
-                </div>
-                <input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="搜索标题、地点、身份、国家…"
-                  className="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400 md:max-w-xs"
-                />
-              </div>
-            </div>
-
-            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <h3 className="text-lg font-bold text-gray-900">地区数据</h3>
@@ -974,7 +927,7 @@ export default function NotJustMeWebsite() {
                 </div>
               </div>
 
-              <div className="mt-4 grid max-h-[420px] gap-3 overflow-y-auto pr-1 sm:grid-cols-2">
+              <div className="mt-4 grid max-h-[420px] gap-3 overflow-y-auto pr-1">
                 {countryStats.map((item) => (
                   <div
                     key={item.code}
@@ -992,40 +945,82 @@ export default function NotJustMeWebsite() {
               </div>
             </div>
 
-            <div className="space-y-6">
-              {filteredPosts.length > 0 ? (
-                filteredPosts.map((post) => (
-                  <PostCard
-                    key={post.id}
-                    post={post}
-                    onReact={reactToPost}
-                    onLike={(id) => incrementField(id, "likes")}
-                    onSave={(id) => incrementField(id, "saves")}
-                    onShare={sharePost}
-                    onAddComment={addComment}
-                  />
-                ))
-              ) : (
-                <div className="rounded-[28px] border border-gray-200 bg-white p-10 text-center text-gray-600 shadow-sm">
-                  没有找到匹配内容，换个关键词试试。
+            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900">关于这个网站</h2>
+              <p className="mt-4 text-sm leading-7 text-gray-600">
+                这个网站的初衷，是让那些曾经让人感到委屈、被轻视、被区别对待、被误解的瞬间，不再只停留在心里。
+                你可以分享在机场、餐厅、酒店、景点、商店、学校、职场或其他公共场所中让你感到不舒服的经历。
+              </p>
+            </div>
+
+            <div className="rounded-[28px] border border-purple-100 bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-bold text-gray-900">发布前建议</h3>
+              <p className="mt-2 text-sm text-gray-600">写得越具体，越能帮助后来的人。</p>
+              <ul className="mt-4 space-y-3 text-sm leading-7 text-gray-600">
+                <li>请尽量写清你的身份、对方身份、国家、日期、地点和事情经过。</li>
+                <li>正文建议控制在 1000 字以内，但尽量把关键信息写完整。</li>
+                <li>避免公开他人的私人信息，保护自己也保护他人。</li>
+                <li>欢迎表达感受，但更鼓励提供能帮助别人判断情境的事实细节。</li>
+              </ul>
+            </div>
+
+            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900">联系与反馈</h2>
+              <div className="mt-4 rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
+                <p>
+                  如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：
+                </p>
+                <p className="mt-2 font-semibold text-purple-700">
+                  contact.notjust.me@gmail.com
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900">免责声明</h2>
+              <div className="mt-4 rounded-2xl border border-gray-100 bg-gray-50 p-4 text-sm leading-7 text-gray-600">
+                <p className="font-semibold text-gray-800">免责声明 / Disclaimer</p>
+
+                <p className="mt-3">
+                  本网站内容均由用户自行发布，仅代表发布者个人观点和经历。本平台不对内容的真实性、完整性或准确性作任何保证，也不对由此产生的任何后果承担责任。
+                </p>
+
+                <p className="mt-2">
+                  我们鼓励用户尽可能提供真实、具体、有信息价值的内容，但无法对每一条信息进行审核或验证。请读者在浏览和参考时自行判断。
+                </p>
+
+                <p className="mt-2">
+                  所有用户在使用本平台时，应遵守基本的法律法规和社区规范，不得发布涉及诽谤、歧视、人身攻击或侵犯他人隐私的内容。
+                </p>
+
+                <div className="mt-4 border-t border-gray-200 pt-4">
+                  <p>
+                    All content on this platform is generated by users and reflects their personal experiences and opinions only. We do not guarantee the accuracy, completeness, or reliability of any content.
+                  </p>
+
+                  <p className="mt-2">
+                    The platform does not verify every submission. Readers should use their own judgment when interpreting the information.
+                  </p>
+
+                  <p className="mt-2">
+                    Users must comply with laws and community guidelines and must not post defamatory, abusive, discriminatory, or privacy-violating content.
+                  </p>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
+
         <footer className="mt-12 border-t border-gray-200 pt-6 text-center text-xs text-gray-500">
-  <p>© 2026 NotJustMe.app — All rights reserved.</p>
-
-  <p className="mt-2">
-    本平台目前处于 Beta 测试阶段，部分功能和内容可能持续优化调整。
-  </p>
-
-  <p className="mt-1">
-    This platform is currently in Beta. Features and content may change as we improve the experience.
-  </p>
-</footer>
+          <p>© 2026 NotJustMe.app — All rights reserved.</p>
+          <p className="mt-2">
+            本平台目前处于 Beta 测试阶段，部分功能和内容可能持续优化调整。
+          </p>
+          <p className="mt-1">
+            This platform is currently in Beta. Features and content may change as we improve the experience.
+          </p>
+        </footer>
       </div>
     </div>
   );
 }
-
