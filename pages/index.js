@@ -271,7 +271,7 @@ function ExpandableText({
           {expanded ? "收起全文" : "展开全文"}
         </button>
       )}
-      <div className="mt-1 text-xs text-gray-400">📝 正文最多1000字</div>
+      <div className="mt-1 text-xs text-gray-400">📝最多1000字</div>
     </div>
   );
 }
