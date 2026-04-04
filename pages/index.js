@@ -766,8 +766,6 @@ export default function NotJustMeWebsite() {
               <p className="mt-5 max-w-3xl whitespace-pre-line text-lg leading-8 text-gray-600">
                 欧洲不适/歧视/差别对待经历收录平台
                 {"\n"}
-                🫂 
-                  这不是一个只让人发泄情绪的地方，而是一个鼓励大家把经历写得更完整、更具体、更能帮助彼此理解处境的平台。
               </p>
             </div>
           </div>
