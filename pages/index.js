@@ -694,12 +694,7 @@ export default function NotJustMeWebsite() {
               </p>
             </div>
 
-            <div className="rounded-[28px] border border-purple-100 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900">首页说明</h3>
-              <p className="mt-2 text-sm text-gray-600">
-                先看看别人已经分享了什么，也欢迎你写下自己的经历。
-              </p>
-            </div>
+          
           </div>
         </section>
 
