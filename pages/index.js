@@ -896,7 +896,7 @@ export default function NotJustMeWebsite() {
                     value={form.summary}
                     onChange={(e) => updateForm("summary", e.target.value.slice(0, 1000))}
                     maxLength={1000}
-                    placeholder="请写清当时发生了什么。"
+                    placeholder="请尽量按顺序描述发生的具体过程，包括你与对方的互动、关键对话或行为细节，让读者无需背景也能理解发生了什么。。"
                     className="min-h-[120px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
                   <div className="mt-2 text-right text-xs text-gray-400">
@@ -912,7 +912,7 @@ export default function NotJustMeWebsite() {
                     value={form.details}
                     onChange={(e) => updateForm("details", e.target.value.slice(0, 1000))}
                     maxLength={1000}
-                    placeholder="补充上下文、感受和细节。"
+                    placeholder="可以补充当时的环境、旁人的对比反应，以及哪些细节让你感到被区别对待，这些信息有助于判断是否具有普遍性。"
                     className="min-h-[140px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
                   <div className="mt-2 text-right text-xs text-gray-400">
@@ -1004,7 +1004,7 @@ export default function NotJustMeWebsite() {
               <h2 className="text-2xl font-bold text-gray-900">联系与反馈</h2>
               <div className="mt-4 rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
                 <p>
-                  如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：
+                  如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我们：
                 </p>
                 <p className="mt-2 font-semibold text-purple-700">
                   contact.notjust.me@gmail.com
