@@ -186,7 +186,7 @@ const countryOptions = [
   { code: "OTHER", emoji: "🌍", en: "Other", zh: "其他", region: "Other / 其他" },
 ];
 
-const starterPosts = [];
+const [posts, setPosts] = useState([]);
 
 function getCountryMeta(countryCode) {
   return (
