@@ -611,16 +611,36 @@ export default function NotJustMeWebsite() {
     );
   };
 
-  const addComment = (postId, text) => {
-  const safeText = text.slice(0, 1000);
+  const addComment = async (postId, text) => {
+  const safeText = text.slice(0, 1000).trim();
+  if (!safeText) return;
+
+  const targetPost = posts.find((post) => post.id === postId);
+  if (!targetPost) return;
+
+  const newComments = [
+    ...(targetPost.comments || []),
+    {
+      id: Date.now() + Math.random(),
+      author: "匿名用户",
+      text: safeText,
+    },
+  ];
+
+  const { error } = await supabase
+    .from("posts")
+    .update({ comments: newComments })
+    .eq("id", postId);
+
+  if (error) {
+    console.error("Failed to add comment:", error);
+    alert(`评论失败：${error.message}`);
+    return;
+  }
+
   setPosts((prev) =>
     prev.map((post) =>
-      post.id === postId
-        ? {
-            ...post,
-            comments: [...post.comments, { id: Date.now(), author: "匿名用户", text: safeText }],
-          }
-        : post
+      post.id === postId ? { ...post, comments: newComments } : post
     )
   );
 };
