@@ -208,6 +208,23 @@ function getPostHotScore(post) {
   );
 }
 
+function getCategoryEmoji(type) {
+  if (!type) return "💬";
+  if (
+    type.includes("机场") ||
+    type.includes("航空") ||
+    type.includes("地勤") ||
+    type.includes("机组")
+  ) {
+    return "✈️";
+  }
+  if (type.includes("餐厅")) return "🍽️";
+  if (type.includes("酒店")) return "🏨";
+  if (type.includes("博物馆") || type.includes("景点")) return "🏛️";
+  if (type.includes("商店")) return "🛍️";
+  return "💬";
+}
+
 function ActionButton({ active, children, onClick }) {
   return (
     <button
@@ -254,7 +271,7 @@ function ExpandableText({
           {expanded ? "收起全文" : "展开全文"}
         </button>
       )}
-      <div className="mt-1 text-xs text-gray-400">正文最多建议 1000 字</div>
+      <div className="mt-1 text-xs text-gray-400">📝 正文最多建议 1000 字</div>
     </div>
   );
 }
@@ -266,7 +283,7 @@ function CommentList({ comments }) {
   return (
     <div className="mt-4">
       <div className="mb-3 flex items-center justify-between">
-        <div className="text-sm text-gray-500">{comments.length} 条评论</div>
+        <div className="text-sm text-gray-500">💬 {comments.length} 条评论</div>
         {comments.length > 2 && (
           <button
             type="button"
@@ -296,7 +313,6 @@ function CommentList({ comments }) {
 
 function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
   const [commentInput, setCommentInput] = useState("");
-  const [showReactions, setShowReactions] = useState(false);
   const countryMeta = getCountryMeta(post.country);
 
   const submitComment = () => {
@@ -314,10 +330,10 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
               <span>{countryMeta.emoji}</span>
               <span>{countryMeta.en} / {countryMeta.zh}</span>
               <span>·</span>
-              <span>热度 {getPostHotScore(post)}</span>
+              <span>🔥 热度 {getPostHotScore(post)}</span>
             </div>
             <h3 className="text-2xl font-bold leading-9 text-gray-900">
-              {post.title}
+              {getCategoryEmoji(post.otherPartyIdentity)} {post.title}
             </h3>
             <p className="mt-2 text-sm text-gray-500">
               不是一句情绪，而是一份更完整的经历记录。
@@ -328,7 +344,7 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
             onClick={() => onShare(post.id)}
             className="rounded-2xl border border-gray-200 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50"
           >
-            分享
+            ↗️ 分享
           </button>
         </div>
       </div>
@@ -336,25 +352,29 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
       <div className="p-6">
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           <div className="rounded-2xl bg-gray-50 p-3 text-sm text-gray-700">
-            <div className="mb-1 font-medium text-gray-900">我的身份</div>
+            <div className="mb-1 font-medium text-gray-900">🙋 我的身份</div>
             {post.authorIdentity}
           </div>
           <div className="rounded-2xl bg-gray-50 p-3 text-sm text-gray-700">
-            <div className="mb-1 font-medium text-gray-900">对方身份</div>
+            <div className="mb-1 font-medium text-gray-900">🧍 对方身份</div>
             {post.otherPartyIdentity}
           </div>
           <div className="rounded-2xl bg-gray-50 p-3 text-sm text-gray-700">
-            <div className="mb-1 font-medium text-gray-900">发生日期</div>
+            <div className="mb-1 font-medium text-gray-900">📅 发生日期</div>
             {post.date}
           </div>
           <div className="rounded-2xl bg-gray-50 p-3 text-sm text-gray-700">
-            <div className="mb-1 font-medium text-gray-900">发生地点</div>
+            <div className="mb-1 font-medium text-gray-900">📍 发生地点</div>
             {post.location}
           </div>
         </div>
 
         <div className="mt-5 space-y-4">
-          <ExpandableText text={post.summary} preview={100} maxLength={1000} />
+          <ExpandableText
+            text={post.summary}
+            preview={100}
+            maxLength={1000}
+          />
           <div className="rounded-2xl border border-purple-100 bg-purple-50 p-4">
             <ExpandableText
               text={post.details}
@@ -365,64 +385,70 @@ function PostCard({ post, onReact, onLike, onSave, onShare, onAddComment }) {
           </div>
         </div>
 
-       <div className="mt-6 border-t border-gray-100 pt-4">
-  <div className="flex flex-wrap items-center gap-3">
-    <ActionButton active={false} onClick={() => onLike(post.id)}>
-      👍 赞同 {post.likes}
-    </ActionButton>
+        <div className="mt-6 border-t border-gray-100 pt-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <ActionButton active={false} onClick={() => onLike(post.id)}>
+              👍 赞同 {post.likes}
+            </ActionButton>
 
-    <ActionButton active={false} onClick={() => onSave(post.id)}>
-      ★ 收藏 {post.saves}
-    </ActionButton>
+            <ActionButton active={false} onClick={() => onSave(post.id)}>
+              ⭐ 收藏 {post.saves}
+            </ActionButton>
 
-    <ActionButton active={false} onClick={() => onShare(post.id)}>
-      ↗ 分享 {post.shares}
-    </ActionButton>
-  </div>
+            <ActionButton active={false} onClick={() => onShare(post.id)}>
+              ↗️ 分享 {post.shares}
+            </ActionButton>
+          </div>
 
-  <div className="mt-4 flex flex-wrap gap-2">
-    {reactionOptions.map((reaction) => (
-      <button
-        key={reaction.key}
-        type="button"
-        onClick={() => onReact(post.id, reaction.key)}
-        className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-      >
-        {reaction.label} ({post.reactions?.[reaction.key] || 0})
-      </button>
-    ))}
-  </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {reactionOptions.map((reaction) => (
+              <button
+                key={reaction.key}
+                type="button"
+                onClick={() => onReact(post.id, reaction.key)}
+                className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                {reaction.label} ({post.reactions?.[reaction.key] || 0})
+              </button>
+            ))}
+          </div>
 
-  <div className="mt-4">
-    <div className="mb-2 text-sm font-medium text-gray-700">
-      💬 评论区
-    </div>
-    <div className="space-y-3">
-      <textarea
-        value={commentInput}
-        onChange={(e) => setCommentInput(e.target.value.slice(0, 1000))}
-        maxLength={1000}
-        placeholder="写下你的看法、补充经历，或者给出建设性建议。最多 1000 字。"
-        className="min-h-[96px] w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400"
-      />
-      <div className="flex items-center justify-between text-xs text-gray-400">
-        <span>建议评论尽量具体、克制、有信息量</span>
-        <span>{commentInput.length}/1000</span>
+          <div className="mt-4">
+            <div className="mb-2 text-sm font-medium text-gray-700">
+              💬 评论区
+            </div>
+            <div className="space-y-3">
+              <textarea
+                value={commentInput}
+                onChange={(e) =>
+                  setCommentInput(e.target.value.slice(0, 1000))
+                }
+                maxLength={1000}
+                placeholder="写下你的看法、补充经历，或者给出建设性建议。最多 1000 字。"
+                className="min-h-[96px] w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400"
+              />
+              <div className="flex items-center justify-between text-xs text-gray-400">
+                <span>建议评论尽量具体、克制、有信息量</span>
+                <span>{commentInput.length}/1000</span>
+              </div>
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={submitComment}
+                  className="rounded-2xl bg-purple-600 px-5 py-2 text-sm font-medium text-white hover:bg-purple-700"
+                >
+                  发布评论
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <CommentList comments={post.comments} />
+        </div>
       </div>
-      <div className="flex justify-end">
-        <button
-          type="button"
-          onClick={submitComment}
-          className="rounded-2xl bg-purple-600 px-5 py-2 text-sm font-medium text-white hover:bg-purple-700"
-        >
-          发布评论
-        </button>
-      </div>
     </div>
-  </div>
-
-  <CommentList comments={post.comments} />
-</div>
+  );
+}
 
 export default function NotJustMeWebsite() {
   const [posts, setPosts] = useState([]);
@@ -553,9 +579,24 @@ export default function NotJustMeWebsite() {
       location: form.location.trim(),
       country: form.country,
       date: form.date,
+      likes: 0,
+      saves: 0,
+      shares: 0,
+      comments: [],
+      reactions: {
+        same: 0,
+        shocked: 0,
+        support: 0,
+        angry: 0,
+        different: 0,
+        helpful: 0,
+      },
     };
 
-    const { data, error } = await supabase.from("posts").insert([payload]).select();
+    const { data, error } = await supabase
+      .from("posts")
+      .insert([payload])
+      .select();
 
     if (error) {
       console.error("Supabase insert error:", error);
@@ -577,106 +618,106 @@ export default function NotJustMeWebsite() {
       details: "",
     });
 
-    alert("发布成功");
+    alert("🎉 发布成功");
   };
 
   const reactToPost = async (postId, reactionKey) => {
-  const targetPost = posts.find((post) => post.id === postId);
-  if (!targetPost) return;
+    const targetPost = posts.find((post) => post.id === postId);
+    if (!targetPost) return;
 
-  const newReactions = {
-    ...(targetPost.reactions || {
-      same: 0,
-      shocked: 0,
-      support: 0,
-      angry: 0,
-      different: 0,
-      helpful: 0,
-    }),
-    [reactionKey]: ((targetPost.reactions || {})[reactionKey] || 0) + 1,
+    const newReactions = {
+      ...(targetPost.reactions || {
+        same: 0,
+        shocked: 0,
+        support: 0,
+        angry: 0,
+        different: 0,
+        helpful: 0,
+      }),
+      [reactionKey]: ((targetPost.reactions || {})[reactionKey] || 0) + 1,
+    };
+
+    const { error } = await supabase
+      .from("posts")
+      .update({ reactions: newReactions })
+      .eq("id", postId);
+
+    if (error) {
+      console.error("Failed to update reactions:", error);
+      alert(`反馈失败：${error.message}`);
+      return;
+    }
+
+    setPosts((prev) =>
+      prev.map((post) =>
+        post.id === postId ? { ...post, reactions: newReactions } : post
+      )
+    );
   };
 
-  const { error } = await supabase
-    .from("posts")
-    .update({ reactions: newReactions })
-    .eq("id", postId);
-
-  if (error) {
-    console.error("Failed to update reactions:", error);
-    alert(`反馈失败：${error.message}`);
-    return;
-  }
-
-  setPosts((prev) =>
-    prev.map((post) =>
-      post.id === postId ? { ...post, reactions: newReactions } : post
-    )
-  );
-};
-
   const addComment = async (postId, text) => {
-  const safeText = text.slice(0, 1000).trim();
-  if (!safeText) return;
+    const safeText = text.slice(0, 1000).trim();
+    if (!safeText) return;
 
-  const targetPost = posts.find((post) => post.id === postId);
-  if (!targetPost) return;
+    const targetPost = posts.find((post) => post.id === postId);
+    if (!targetPost) return;
 
-  const newComments = [
-    ...(targetPost.comments || []),
-    {
-      id: Date.now() + Math.random(),
-      author: "匿名用户",
-      text: safeText,
-    },
-  ];
+    const newComments = [
+      ...(targetPost.comments || []),
+      {
+        id: Date.now() + Math.random(),
+        author: "匿名用户",
+        text: safeText,
+      },
+    ];
 
-  const { error } = await supabase
-    .from("posts")
-    .update({ comments: newComments })
-    .eq("id", postId);
+    const { error } = await supabase
+      .from("posts")
+      .update({ comments: newComments })
+      .eq("id", postId);
 
-  if (error) {
-    console.error("Failed to add comment:", error);
-    alert(`评论失败：${error.message}`);
-    return;
-  }
+    if (error) {
+      console.error("Failed to add comment:", error);
+      alert(`评论失败：${error.message}`);
+      return;
+    }
 
-  setPosts((prev) =>
-    prev.map((post) =>
-      post.id === postId ? { ...post, comments: newComments } : post
-    )
-  );
-};
+    setPosts((prev) =>
+      prev.map((post) =>
+        post.id === postId ? { ...post, comments: newComments } : post
+      )
+    );
+  };
 
   const incrementField = async (postId, field) => {
-  const targetPost = posts.find((post) => post.id === postId);
-  if (!targetPost) return;
+    const targetPost = posts.find((post) => post.id === postId);
+    if (!targetPost) return;
 
-  const newValue = (targetPost[field] || 0) + 1;
+    const newValue = (targetPost[field] || 0) + 1;
 
-  const { error } = await supabase
-    .from("posts")
-    .update({ [field]: newValue })
-    .eq("id", postId);
+    const { error } = await supabase
+      .from("posts")
+      .update({ [field]: newValue })
+      .eq("id", postId);
 
-  if (error) {
-    console.error(`Failed to update ${field}:`, error);
-    alert(`操作失败：${error.message}`);
-    return;
-  }
+    if (error) {
+      console.error(`Failed to update ${field}:`, error);
+      alert(`操作失败：${error.message}`);
+      return;
+    }
 
-  setPosts((prev) =>
-    prev.map((post) =>
-      post.id === postId ? { ...post, [field]: newValue } : post
-    )
-  );
-};
+    setPosts((prev) =>
+      prev.map((post) =>
+        post.id === postId ? { ...post, [field]: newValue } : post
+      )
+    );
+  };
 
   const sharePost = async (postId) => {
     const post = posts.find((item) => item.id === postId);
     if (!post) return;
 
-    incrementField(postId, "shares");
+    await incrementField(postId, "shares");
 
     const shareText = `${post.title}\n${post.summary}\n地点：${post.location}｜日期：${post.date}`;
 
@@ -687,7 +728,10 @@ export default function NotJustMeWebsite() {
           text: shareText,
           url: typeof window !== "undefined" ? window.location.href : "",
         });
-      } else if (typeof navigator !== "undefined" && navigator.clipboard) {
+      } else if (
+        typeof navigator !== "undefined" &&
+        navigator.clipboard
+      ) {
         await navigator.clipboard.writeText(shareText);
         alert("内容已复制，可以分享到其他平台。");
       } else {
@@ -702,10 +746,10 @@ export default function NotJustMeWebsite() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-purple-50 text-gray-900">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <section className="overflow-hidden rounded-[32px] border border-purple-100 bg-white p-8 shadow-sm">
-          <div className="grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+          <div className="grid gap-8">
             <div>
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-2 text-sm font-medium text-purple-700">
-                让更多人愿意写下真实经历
+                ✨ 让更多人愿意写下真实经历
               </div>
 
               <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
@@ -713,7 +757,7 @@ export default function NotJustMeWebsite() {
                   onClick={() => window.location.reload()}
                   className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition"
                 >
-                  <span className="text-gray-900">Not Just Me</span>
+                  <span className="text-gray-900">🫂 Not Just Me</span>
                   <span className="text-purple-600">/</span>
                   <span className="text-purple-600">原来不止我</span>
                 </button>
@@ -725,8 +769,6 @@ export default function NotJustMeWebsite() {
                 这不是一个只让人发泄情绪的地方，而是一个鼓励大家把经历写得更完整、更具体、更能帮助彼此理解处境的平台。
               </p>
             </div>
-
-          
           </div>
         </section>
 
@@ -735,7 +777,7 @@ export default function NotJustMeWebsite() {
             <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">社区内容</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">🧾 社区内容</h2>
                   <p className="mt-1 text-sm text-gray-600">
                     帖子会根据点赞、评论、分享、收藏和互动热度动态排序。
                   </p>
@@ -743,7 +785,7 @@ export default function NotJustMeWebsite() {
                 <input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="搜索标题、地点、身份、国家…"
+                  placeholder="🔎 搜索标题、地点、身份、国家…"
                   className="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-purple-400 md:max-w-xs"
                 />
               </div>
@@ -764,7 +806,7 @@ export default function NotJustMeWebsite() {
                 ))
               ) : (
                 <div className="rounded-[28px] border border-gray-200 bg-white p-10 text-center text-gray-600 shadow-sm">
-                  还没有内容，成为第一个发布的人吧。
+                  📭 还没有内容，成为第一个发布的人吧。
                 </div>
               )}
             </div>
@@ -772,7 +814,7 @@ export default function NotJustMeWebsite() {
 
           <div className="space-y-6">
             <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900">发布你的经历</h2>
+              <h2 className="text-2xl font-bold text-gray-900">✍️ 发布你的经历</h2>
               <p className="mt-1 text-sm text-gray-600">
                 把经历写得更完整，能帮助更多人理解真实场景。
               </p>
@@ -787,7 +829,7 @@ export default function NotJustMeWebsite() {
 
                 <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
-                    我的身份
+                    🙋 我的身份
                   </label>
                   <select
                     value={form.authorIdentity}
@@ -805,7 +847,7 @@ export default function NotJustMeWebsite() {
 
                 <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
-                    让我不舒服的人的身份
+                    🧍 对方身份
                   </label>
                   <select
                     value={form.otherPartyIdentity}
@@ -823,7 +865,7 @@ export default function NotJustMeWebsite() {
 
                 <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
-                    发生国家
+                    🌍 发生国家
                   </label>
                   <select
                     value={form.country}
@@ -851,7 +893,7 @@ export default function NotJustMeWebsite() {
 
                 <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
-                    发生日期
+                    📅 发生日期
                   </label>
                   <input
                     type="date"
@@ -863,7 +905,7 @@ export default function NotJustMeWebsite() {
 
                 <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
-                    发生地点
+                    📍 发生地点
                   </label>
                   <input
                     value={form.location}
@@ -875,13 +917,16 @@ export default function NotJustMeWebsite() {
 
                 <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
-                    事情经过概述
+                    📝 事情经过概述
                   </label>
+                  <p className="mb-2 text-xs leading-6 text-gray-500">
+                    请按时间顺序简要说明发生了什么，包括当时的情境、对话或具体行为，让第一次看到的人也能理解整个过程。
+                  </p>
                   <textarea
                     value={form.summary}
                     onChange={(e) => updateForm("summary", e.target.value.slice(0, 1000))}
                     maxLength={1000}
-                    placeholder="请尽量按顺序描述发生的具体过程，包括你与对方的互动、关键对话或行为细节，让读者无需背景也能理解发生了什么。。"
+                    placeholder="请写清当时发生了什么。"
                     className="min-h-[120px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
                   <div className="mt-2 text-right text-xs text-gray-400">
@@ -891,13 +936,16 @@ export default function NotJustMeWebsite() {
 
                 <div className="rounded-2xl border border-gray-200 p-3">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
-                    补充细节与感受
+                    💭 补充细节与感受
                   </label>
+                  <p className="mb-2 text-xs leading-6 text-gray-500">
+                    可以补充当时的环境、他人与自己的反应，以及哪些细节让你产生不适，这些信息能帮助他人判断是否具有共性。
+                  </p>
                   <textarea
                     value={form.details}
                     onChange={(e) => updateForm("details", e.target.value.slice(0, 1000))}
                     maxLength={1000}
-                    placeholder="可以补充当时的环境、旁人的对比反应，以及哪些细节让你感到被区别对待，这些信息有助于判断是否具有普遍性。"
+                    placeholder="补充上下文、感受和细节。"
                     className="min-h-[140px] w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-purple-400"
                   />
                   <div className="mt-2 text-right text-xs text-gray-400">
@@ -912,7 +960,7 @@ export default function NotJustMeWebsite() {
                   onClick={submitPost}
                   className="rounded-2xl bg-purple-600 px-5 py-3 text-sm font-medium text-white hover:bg-purple-700"
                 >
-                  发布帖子
+                  🚀 发布帖子
                 </button>
                 <button
                   type="button"
@@ -938,7 +986,7 @@ export default function NotJustMeWebsite() {
             <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900">地区数据</h3>
+                  <h3 className="text-lg font-bold text-gray-900">🌍 地区数据</h3>
                   <p className="mt-1 text-sm text-gray-600">
                     按国家统计当前社区里被提到的次数。
                   </p>
@@ -967,7 +1015,7 @@ export default function NotJustMeWebsite() {
             </div>
 
             <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900">关于这个网站</h2>
+              <h2 className="text-2xl font-bold text-gray-900">🌱 关于这个网站</h2>
               <p className="mt-4 text-sm leading-7 text-gray-600">
                 这个网站的初衷，是让那些曾经让人感到委屈、被轻视、被区别对待、被误解的瞬间，不再只停留在心里。
                 你可以分享在机场、餐厅、酒店、景点、商店、学校、职场或其他公共场所中让你感到不舒服的经历。
@@ -975,7 +1023,7 @@ export default function NotJustMeWebsite() {
             </div>
 
             <div className="rounded-[28px] border border-purple-100 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900">发布前建议</h3>
+              <h3 className="text-lg font-bold text-gray-900">📌 发布前建议</h3>
               <p className="mt-2 text-sm text-gray-600">写得越具体，越能帮助后来的人。</p>
               <ul className="mt-4 space-y-3 text-sm leading-7 text-gray-600">
                 <li>请尽量写清你的身份、对方身份、国家、日期、地点和事情经过。</li>
@@ -986,10 +1034,10 @@ export default function NotJustMeWebsite() {
             </div>
 
             <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900">联系与反馈</h2>
+              <h2 className="text-2xl font-bold text-gray-900">📮 联系与反馈</h2>
               <div className="mt-4 rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-7 text-gray-700">
                 <p>
-                  如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我们：
+                  如果你对网站内容结构、发布方式、互动功能或社区规范有建议，可以通过下面的邮箱联系我：
                 </p>
                 <p className="mt-2 font-semibold text-purple-700">
                   contact.notjust.me@gmail.com
@@ -998,7 +1046,7 @@ export default function NotJustMeWebsite() {
             </div>
 
             <div className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900">免责声明</h2>
+              <h2 className="text-2xl font-bold text-gray-900">⚖️ 免责声明</h2>
               <div className="mt-4 rounded-2xl border border-gray-100 bg-gray-50 p-4 text-sm leading-7 text-gray-600">
                 <p className="font-semibold text-gray-800">免责声明 / Disclaimer</p>
 
@@ -1035,7 +1083,7 @@ export default function NotJustMeWebsite() {
         <footer className="mt-12 border-t border-gray-200 pt-6 text-center text-xs text-gray-500">
           <p>© 2026 NotJustMe.app — All rights reserved.</p>
           <p className="mt-2">
-            本平台目前处于 Beta 测试阶段，部分功能和内容可能持续优化调整。
+            🧪 本平台目前处于 Beta 测试阶段，部分功能和内容可能持续优化调整。
           </p>
           <p className="mt-1">
             This platform is currently in Beta. Features and content may change as we improve the experience.
