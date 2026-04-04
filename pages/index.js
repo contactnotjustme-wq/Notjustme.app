@@ -632,13 +632,29 @@ export default function NotJustMeWebsite() {
     );
   };
 
-  const incrementField = (postId, field) => {
-    setPosts((prev) =>
-      prev.map((post) =>
-        post.id === postId ? { ...post, [field]: (post[field] || 0) + 1 } : post
-      )
-    );
-  };
+  const incrementField = async (postId, field) => {
+  const targetPost = posts.find((post) => post.id === postId);
+  if (!targetPost) return;
+
+  const newValue = (targetPost[field] || 0) + 1;
+
+  const { error } = await supabase
+    .from("posts")
+    .update({ [field]: newValue })
+    .eq("id", postId);
+
+  if (error) {
+    console.error(`Failed to update ${field}:`, error);
+    alert(`操作失败：${error.message}`);
+    return;
+  }
+
+  setPosts((prev) =>
+    prev.map((post) =>
+      post.id === postId ? { ...post, [field]: newValue } : post
+    )
+  );
+};
 
   const sharePost = async (postId) => {
     const post = posts.find((item) => item.id === postId);
