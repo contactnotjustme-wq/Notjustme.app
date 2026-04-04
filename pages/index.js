@@ -612,25 +612,18 @@ export default function NotJustMeWebsite() {
   };
 
   const addComment = (postId, text) => {
-    const safeText = text.slice(0, 1000);
-    setPosts((prev) =>
-      prev.map((post) =>
-        post.id === postId
-          ? {
-              ...post,
-              comments: [
-                ...post.comments,
-                {
-                  id: Date.now() + Math.random(),
-                  author: "匿名用户",
-                  text: safeText,
-                },
-              ],
-            }
-          : post
-      )
-    );
-  };
+  const safeText = text.slice(0, 1000);
+  setPosts((prev) =>
+    prev.map((post) =>
+      post.id === postId
+        ? {
+            ...post,
+            comments: [...post.comments, { id: Date.now(), author: "匿名用户", text: safeText }],
+          }
+        : post
+    )
+  );
+};
 
   const incrementField = async (postId, field) => {
   const targetPost = posts.find((post) => post.id === postId);
